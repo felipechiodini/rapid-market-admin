@@ -1,10 +1,12 @@
 <template>
   <div>
-    <base-index title="Banners">
+    <base-index title="Clientes">
       <template #buttons>
-        <button class="btn btn-sm btn-primary">Novo Banner</button>
+        <button class="btn btn-primary btn-sm" @click="$router.push({ name: 'customer.store' })">
+          Novo Cliente
+        </button>
       </template>
-      <base-table class="table" request="banner">
+      <base-table class="table" request="customer">
         <template #header>
           <th>Nome</th>
           <th></th>
@@ -16,7 +18,10 @@
                 {{ customer.name }}
               </td>
               <td>
-                <img height="70px" :src="customer.src" alt="">
+                {{ customer.document }}
+              </td>
+              <td>
+                {{ customer.cellphone }}
               </td>
             </tr>
           </tbody>

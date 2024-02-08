@@ -1,23 +1,37 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Authenticated from '@/layout/Authenticated.vue'
-import UserRouters from '@/router/modules/user.js'
-import PhotoRouters from '@/router/modules/photo.js'
-import CategoryRouters from '@/router/modules/category.js'
-import CardRouters from '@/router/modules/card.js'
-import WaiterRouters from '@/router/modules/waiter.js'
-import BannerRouters from '@/router/modules/banner.js'
-import ComboRouters from '@/router/modules/combo.js'
+import UserRouters from '@/router/modules/User.js'
+import CategoryRouters from '@/router/modules/Category.js'
+import CardRouters from '@/router/modules/Card.js'
+import WaiterRouters from '@/router/modules/Waiter.js'
+import BannerRouters from '@/router/modules/Banner.js'
+import ComboRouters from '@/router/modules/Combo.js'
 import ProductRouters from '@/router/modules/product.js'
-import GeneralRouters from '@/router/modules/general.js'
-import CustomerRouters from '@/router/modules/customer.js'
+import GeneralRouters from '@/router/modules/General.js'
+import CustomerRouters from '@/router/modules/Customer.js'
+import ScheduleRouters from '@/router/modules/Schedule.js'
+import OrderRouters from '@/router/modules/Order.js'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      component: () => import('@/views/Store.vue'),
-      name: 'stores.choose'
+      component: () => import('@/layout/Base.vue'),
+      name: 'index',
+      redirect: '/',
+      children: [
+        {
+          path: '/',
+          name: 'stores.choose',
+          component: () => import('@/views/Store/Index.vue'),
+        },
+        {
+          path: '/perfil',
+          name: 'profile.index',
+          component: () => import('@/views/Profile/Index.vue')
+        }
+      ]
     },
     {
       path: '/:slug',
@@ -26,15 +40,16 @@ const router = createRouter({
       children: [
         ...GeneralRouters,
         ...CustomerRouters,
-        ...UserRouters,
         ...CategoryRouters,
+        ...UserRouters,
         ...CardRouters,
         ...WaiterRouters,
         ...BannerRouters,
-        ...PhotoRouters,
+        // ...PhotoRouters,
         ...ProductRouters,
         ...ComboRouters,
-        // ...OrderRouters,
+        ...ScheduleRouters,
+        ...OrderRouters
       ]
     },
     {

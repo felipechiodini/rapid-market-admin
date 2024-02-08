@@ -3,17 +3,17 @@ import Store from '@/views/Banner/Store.vue'
 import Update from '@/views/Banner/Update.vue'
 
 export default [{
-    path: '/banners',
+    path: '/:slug/banners',
     name: 'banner.index',
     component: Index
   },
   {
-    path: '/banners/novo',
+    path: '/:slug/banners/novo',
     name: 'banner.store',
     component: Store
   },
   {
-    path: '/banners/banner_id',
+    path: '/:slug/banners/banner_id',
     name: 'banner.update',
     component: Update
   }

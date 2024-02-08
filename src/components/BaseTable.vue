@@ -115,7 +115,7 @@ export default {
       const page = this.$route.query.page ?? 1
       const per_page = this.$route.query.per_page ?? 10
 
-      request().get(this.request, { params: { page, per_page }}).then(({ data }) => {
+      request(this.$route.params.slug).get(this.request, { params: { page, per_page }}).then(({ data }) => {
         this.page = data.page
         this.columns = data.columns
       }).finally(() => {

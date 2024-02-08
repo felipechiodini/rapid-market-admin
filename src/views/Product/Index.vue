@@ -2,20 +2,22 @@
   <div>
     <base-index title="Produtos">
       <template #buttons>
-        <b-button size="sm" :to="{ name: 'product.store' }">
+        <button class="btn btn-primary btn-sm" :to="{ name: 'product.store' }">
           Novo Produto
-        </b-button>
+        </button>
       </template>
       <base-table class="table" request="product">
         <template #header>
           <th>Nome</th>
         </template>
         <template #content="{ rows }">
-          <tr v-for="(customer, key) in rows" :key="key">
-            <td>
-              {{ customer.name }}
-            </td>
-          </tr>
+          <tbody>
+            <tr v-for="(customer, key) in rows" :key="key">
+              <td>
+                {{ customer.name }}
+              </td>
+            </tr>
+          </tbody>
         </template>
       </base-table>
     </base-index>

@@ -3,17 +3,17 @@ import Store from '@/views/Combo/Store.vue'
 import Update from '@/views/Combo/Update.vue'
 
 export default [{
-    path: '/combos',
+    path: '/:slug/combos',
     name: 'combo.index',
     component: Index
   },
   {
-    path: '/combos/novo',
+    path: '/:slug/combos/novo',
     name: 'combo.store',
     component: Store
   },
   {
-    path: '/combos/:combo_id',
+    path: '/:slug/combos/:combo_id',
     name: 'combo.update',
     component: Update
   }

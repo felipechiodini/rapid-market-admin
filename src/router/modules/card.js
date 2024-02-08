@@ -3,17 +3,17 @@ import Store from '@/views/Card/Store.vue'
 import Update from '@/views/Card/Update.vue'
 
 export default [{
-    path: '/comandas',
+    path: '/:slug/comandas',
     name: 'card.index',
     component: Index
   },
   {
-    path: '/comandas/novo',
+    path: '/:slug/comandas/novo',
     name: 'card.store',
     component: Store
   },
   {
-    path: '/comandas/:card_id',
+    path: '/:slug/comandas/:card_id',
     name: 'card.update',
     component: Update
   }

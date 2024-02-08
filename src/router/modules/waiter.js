@@ -3,17 +3,17 @@ import Store from '@/views/Waiter/Store.vue'
 import Update from '@/views/Waiter/Update.vue'
 
 export default [{
-    path: '/garcons',
+    path: '/:slug/garcons',
     name: 'waiter.index',
     component: Index
   },
   {
-    path: '/garcons/novo',
+    path: '/:slug/garcons/novo',
     name: 'waiter.store',
     component: Store
   },
   {
-    path: '/garcons/:waiter_id',
+    path: '/:slug/garcons/:waiter_id',
     name: 'waiter.update',
     component: Update
   }

@@ -3,17 +3,17 @@ import Store from '@/views/User/Store.vue'
 import Update from '@/views/User/Update.vue'
 
 export default [{
-    path: '/usuarios',
+    path: '/:slug/usuarios',
     name: 'user.index',
     component: Index
   },
   {
-    path: '/usuarios/novo',
+    path: '/:slug/usuarios/novo',
     name: 'user.store',
     component: Store
   },
   {
-    path: '/usuarios/:product_id',
+    path: '/:slug/usuarios/:product_id',
     name: 'user.update',
     component: Update
   }

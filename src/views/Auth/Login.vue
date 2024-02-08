@@ -51,7 +51,7 @@ export default {
         const { data } = await Api.post('auth/login', this.form)
         this.setToken(data.access_token)
         Api.get('auth/me').then(({ data }) => this.setUser(data))
-        this.$router.push({ name: 'dashboard.index' })
+        this.$router.push({ name: 'stores.choose' })
       } catch (error) {
         this.errors.record(error)
       }

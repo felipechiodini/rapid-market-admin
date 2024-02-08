@@ -1,13 +1,17 @@
 <template>
   <header>
+    <div>
+      <button class="btn btn-tranparent text-primary ms-2" @click="$router.push({ name: 'stores.choose' })">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+    </div>
     <div class="d-flex ms-auto">
-      <button class="icon-bell text-muted me-2">
+      <button class="icon-bell text-muted me-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
         <i class="fa-regular fa-bell"></i>
       </button>
-      <button class="falçwojfawjifw" @click="dropdownOpened = !dropdownOpened">
+      <button class="falçwojfawjifw" @click="$router.push({ name: 'profile.index' })">
         <span>{{ initialLetters }}</span>
       </button>
-      <drop-down-profile v-model="dropdownOpened" />
     </div>
   </header>
 </template>
@@ -15,12 +19,8 @@
 <script>
 import { mapState } from 'pinia';
 import { useUserStore } from '@/stores/user'
-import DropDownProfile from './DropDownProfile.vue';
 
 export default {
-  components: {
-    DropDownProfile
-  },
   data: () => {
     return {
       dropdownOpened: false
@@ -39,7 +39,6 @@ export default {
 <style scoped>
 
   header {
-    position: fixed;
     display: flex;
     align-items: center;
     background-color: #fff;
@@ -47,7 +46,7 @@ export default {
     border-bottom: 1px solid #eaeaea;
     top: 0;
     left: 0;
-    height: 60px;
+    height: 8vh;
     width: 100%;
     z-index: 3;
   }
