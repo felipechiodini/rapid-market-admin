@@ -1,10 +1,8 @@
 <template>
   <header>
-    <div>
-      <button class="btn btn-tranparent text-primary ms-2" @click="$router.push({ name: 'stores.choose' })">
-        <i class="fas fa-chevron-left"></i>
-      </button>
-    </div>
+    <button v-if="showButton" class="btn btn-sm text-primary ms-2" @click="$router.push({ name: 'stores.choose' })">
+      <i class="fas fa-chevron-left"></i>
+    </button>
     <div class="d-flex ms-auto">
       <button class="icon-bell text-muted me-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
         <i class="fa-regular fa-bell"></i>
@@ -21,16 +19,14 @@ import { mapState } from 'pinia';
 import { useUserStore } from '@/stores/user'
 
 export default {
-  data: () => {
-    return {
-      dropdownOpened: false
-    }
-  },
   computed: {
     ...mapState(useUserStore, ['user']),
     initialLetters() {
       const firstLetters = this.user.name.split(' ').map(i => i.charAt(0))
       return firstLetters[0] + firstLetters.pop()
+    },
+    showButton() {
+      return this.$route.name !== 'stores.choose'
     }
   }
 }
