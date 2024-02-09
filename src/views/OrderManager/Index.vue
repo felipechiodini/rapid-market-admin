@@ -13,9 +13,12 @@
             <div class="d-flex">
               <span class="fw-bold">{{ order.customer.name }}</span>
               <span class="ms-2 order-number text-muted">#{{ order.id }}</span>
+              <span class="ms-auto" style="font-size: .8rem;">{{ order.total }}</span>
             </div>
-            <span>{{ order.status_label }}</span>
-            <span>{{ order.total }}</span>
+            <span class="badge" :class="getOrderStatusBadge(order)">
+              {{ order.status_label }}
+            </span>
+            <span>{{ order.ordered_since }}</span>
           </div>  
         </template>
         <loading v-else />
@@ -98,6 +101,17 @@ export default {
     this.load()
   },
   methods: {
+    getOrderStatusBadge(order) {
+      const statusColor = {
+        1: 'bg-primary',
+        2: 'bg-primary',
+        3: 'bg-primary',
+        4: 'bg-success',
+        5: 'bg-warning',
+      }
+
+      return statusColor[order.status]
+    },
     load() {
       request(this.$route.params.slug).get('order-manager').then(({ data }) => {
         this.orders = data.orders
@@ -161,7 +175,7 @@ export default {
   flex-direction: column;
   border-bottom: 1px solid #ccc;
   border-right: 1px solid #ccc;
-  padding: .5rem;
+  padding: 1rem;
   cursor: pointer;
 }
 
