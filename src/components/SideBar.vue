@@ -4,9 +4,15 @@
       <button class="btn" @click="toggleCollapsed()">
         <span :class="{ 'fas fa-chevron-left float-end': collapsed === false, 'fas fa-chevron-right': collapsed === true }"></span>
       </button>
-      <div class="text-center mb-2" v-if="collapsed === false">
+      <div class="d-flex align-items-center text-center mb-2" v-if="collapsed === false">
         <i class="fas fa-store"></i>
-        <h6>{{ store.name }}</h6>
+        <div>
+          <h6 class="m-0">{{ store.name }}</h6>
+          <span style="font-size: .8rem;">
+            <span class="fas fa-circle text-success"></span>
+            Loja Aberta
+          </span>
+        </div>
       </div>
       <ul class="m-0">
         <li v-for="(menu, key) in menus" :key="key">

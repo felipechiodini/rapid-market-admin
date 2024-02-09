@@ -1,12 +1,15 @@
 <template>
   <div>
-    <base-index title="Gerenciador de Pedidos">
-    <div class="doijawodiaw d-flex mt-4">
-      <div class="waopfjoawp">
+    <base-index title="Gestor de Pedidos">
+    <div class="doijawodiaw rounded d-flex mt-4">
+      <div class="waopfjoawp rounded-start">
+        <div class="fioawfwafjwa">
+          <input type="text" v-model="filters.id" class="form-control" placeholder="Pesquisar ID" @input="doSearch">
+        </div>
         <template v-if="orders !== null">
           <div
             class="awonjfowajf"
-            :class="{ 'selected': order.id === selectedOrder?.id }"
+            :class="{ 'selected shadow': order.id === selectedOrder?.id }"
             v-for="(order, key) in orders"
             :key="key"
             @click="loadOrderOnIndex(order)">
@@ -15,15 +18,17 @@
               <span class="ms-2 order-number text-muted">#{{ order.id }}</span>
               <span class="ms-auto" style="font-size: .8rem;">{{ order.total }}</span>
             </div>
-            <span class="badge" :class="getOrderStatusBadge(order)">
+            <span class="badge dawpokfojw my-1" :class="getOrderStatusBadge(order)">
               {{ order.status_label }}
             </span>
-            <span>{{ order.ordered_since }}</span>
+            <span class="doawjfowajfwafjwa">
+              {{ order.ordered_since }}
+            </span>
           </div>  
         </template>
         <loading v-else />
       </div>
-      <div class="fapowfoiwa shadow">
+      <div class="fapowfoiwa shadow rounded-end">
         <template v-if="selectedOrder !== null && loadingOrder === false">
           <div class="d-flex">
             <h5>{{ selectedOrder.customer.name }}</h5>
@@ -67,6 +72,7 @@ import BaseIndex from '@/components/BaseIndex.vue'
 import Loading from '@/components/Loading.vue';
 import { request } from '@/js/apiStore';
 import { CANCELED, DISPATCHED, getButton } from '@/js/OrderStatus';
+import debounce from 'lodash.debounce'
 
 export default {
   components: {
@@ -77,7 +83,10 @@ export default {
     return {
       orders: null,
       selectedOrder: null,
-      loadingOrder: false
+      loadingOrder: false,
+      filters: {
+        id: null
+      }
     }
   },
   computed: {
@@ -101,26 +110,33 @@ export default {
     this.load()
   },
   methods: {
+    load() {
+      request(this.$route.params.slug)
+        .get('order-manager', { params: { ...this.filters } })
+        .then(({ data }) => {
+          this.orders = data.orders
+        })
+    },
     getOrderStatusBadge(order) {
       const statusColor = {
         1: 'bg-primary',
-        2: 'bg-primary',
-        3: 'bg-primary',
+        2: 'bg-info',
+        3: 'bg-secondary',
         4: 'bg-success',
         5: 'bg-warning',
       }
 
       return statusColor[order.status]
     },
-    load() {
-      request(this.$route.params.slug).get('order-manager').then(({ data }) => {
-        this.orders = data.orders
-      })
-    },
     doNextStep() {
-      request(this.$route.params.slug).post(this.nextStepButton.request(this.selectedOrder.id)).then(({ data }) => {
-        this.loadOrder(this.selectedOrder)
-      })
+      request(this.$route.params.slug)
+        .post(this.nextStepButton.request(this.selectedOrder.id))
+        .then(({ data }) => {
+          const orderInIndex = this.orders.find(order => order.id === this.selectedOrder.id)
+          orderInIndex.status = data.status
+          orderInIndex.status_label = data.label
+          this.loadOrder(this.selectedOrder)
+        })
     },
     cancelOrder() {
       request(this.$route.params.slug).post(`order-manager/${this.selectedOrder.id}/cancel`).then(({ data }) => {
@@ -142,7 +158,8 @@ export default {
         }).finally(() => {
           this.loadingOrder = false
         })
-    }
+    },
+    doSearch: debounce(function() { this.load() }, 500)
   }
 }
 </script>
@@ -171,6 +188,7 @@ export default {
 }
 
 .awonjfowajf {
+  font-size: .8rem;
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid #ccc;
@@ -194,6 +212,16 @@ export default {
   border-bottom: 1px solid #ccc;
   border-right: 1px solid #ccc;
   background-color: #fff;
+}
+
+.dawpokfojw {
+  font-weight: 500;
+  width: fit-content;
+}
+
+.fioawfwafjwa {
+  padding: 1rem;
+  border-right: 1px solid #ccc;
 }
 
 </style>

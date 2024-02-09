@@ -1,19 +1,19 @@
 <template>
-    <div>
-  <base-header />
-  <RouterView />
-        
-    </div>
+  <div>
+    <base-header />
+    <notifications-bar />
+    <RouterView />
+  </div>
 </template>
 
 <script>
 import BaseHeader from '@/components/BaseHeader.vue';
+import NotificationsBar from '@/components/NotificationsBar.vue';
+
 export default {
-
-    components: {
-    BaseHeader
-
-    }
-    
+  components: {
+    BaseHeader,
+    NotificationsBar
+  }
 }
 </script>
