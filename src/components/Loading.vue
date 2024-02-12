@@ -4,14 +4,20 @@
 
 <script>
 export default {
-  name: 'loading'
+  name: 'loading',
+  props: {
+    size: {
+      type: String,
+      default: '48px'
+    }
+  }
 }
 </script>
 
 <style scoped>
   .loader {
-    width: 48px;
-    height: 48px;
+    width: v-bind(size);
+    height: v-bind(size);
     border-radius: 50%;
     position: relative;
     animation: rotate 1s linear infinite

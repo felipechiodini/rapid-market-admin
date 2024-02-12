@@ -14,6 +14,10 @@ export const getButton = (status) => {
     1: {
       label: 'Confirmar Pedido',
       request: orderId => `order-manager/${orderId}/confirm`,
+      status: {
+        value: OPEN,
+        label: OPEN_LABEL
+      }
     },
     2: {
       label: 'Despachar Pedido',

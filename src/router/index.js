@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Authenticated from '@/layout/Authenticated.vue'
 import UserRouters from '@/router/modules/User.js'
 import CategoryRouters from '@/router/modules/Category.js'
 import CardRouters from '@/router/modules/Card.js'
@@ -11,13 +10,14 @@ import GeneralRouters from '@/router/modules/General.js'
 import CustomerRouters from '@/router/modules/Customer.js'
 import ScheduleRouters from '@/router/modules/Schedule.js'
 import OrderRouters from '@/router/modules/Order.js'
+import AddressRouters from '@/router/modules/Address.js'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      component: () => import('@/layout/Base.vue'),
+      component: () => import('@/layout/Authenticated.vue'),
       name: 'index',
       redirect: '/',
       children: [
@@ -30,26 +30,26 @@ const router = createRouter({
           path: '/perfil',
           name: 'profile.index',
           component: () => import('@/views/Profile/Index.vue')
+        },
+        {
+          path: '/:slug',
+          name: 'store.index',
+          component: () => import('@/layout/Store.vue'),
+          children: [
+            ...GeneralRouters,
+            ...CustomerRouters,
+            ...CategoryRouters,
+            ...UserRouters,
+            ...CardRouters,
+            ...WaiterRouters,
+            ...BannerRouters,
+            ...ProductRouters,
+            ...ComboRouters,
+            ...ScheduleRouters,
+            ...OrderRouters,
+            ...AddressRouters,
+          ]
         }
-      ]
-    },
-    {
-      path: '/:slug',
-      name: 'store.index',
-      component: Authenticated,
-      children: [
-        ...GeneralRouters,
-        ...CustomerRouters,
-        ...CategoryRouters,
-        ...UserRouters,
-        ...CardRouters,
-        ...WaiterRouters,
-        ...BannerRouters,
-        // ...PhotoRouters,
-        ...ProductRouters,
-        ...ComboRouters,
-        ...ScheduleRouters,
-        ...OrderRouters
       ]
     },
     {

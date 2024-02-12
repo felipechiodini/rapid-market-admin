@@ -3,49 +3,85 @@
     <base-index title="Gestor de Pedidos">
     <div class="doijawodiaw rounded d-flex mt-4">
       <div class="waopfjoawp rounded-start">
-        <div class="fioawfwafjwa">
-          <input type="text" v-model="filters.id" class="form-control" placeholder="Pesquisar ID" @input="doSearch">
+        <div class="p-2 border-bottom border-end">
+          <div class="position-relative">
+            <input type="text" v-model="filters.id" class="form-control form-control-sm" placeholder="Número pedido" @input="doSearch">
+            <span v-if="filters.id !== null" class="fas fa-times podawkopfjawojfwaoif" @click="clearSearch()"></span>
+          </div>
         </div>
-        <template v-if="orders !== null">
-          <div
-            class="awonjfowajf"
-            :class="{ 'selected shadow': order.id === selectedOrder?.id }"
-            v-for="(order, key) in orders"
-            :key="key"
-            @click="loadOrderOnIndex(order)">
-            <div class="d-flex">
-              <span class="fw-bold">{{ order.customer.name }}</span>
-              <span class="ms-2 order-number text-muted">#{{ order.id }}</span>
-              <span class="ms-auto" style="font-size: .8rem;">{{ order.total }}</span>
-            </div>
-            <span class="badge dawpokfojw my-1" :class="getOrderStatusBadge(order)">
-              {{ order.status_label }}
-            </span>
-            <span class="doawjfowajfwafjwa">
-              {{ order.ordered_since }}
-            </span>
-          </div>  
-        </template>
-        <loading v-else />
+        <div class="foiawjfiwafawi">
+          <template v-if="orders !== null">
+            <div
+              class="awonjfowajf"
+              :class="{ 'selected shadow': order.id === selectedOrder?.id }"
+              v-for="(order, key) in orders"
+              :key="key"
+              @click="loadOrderFromIndex(order)">
+              <div class="d-flex text-end">
+                <span class="fw-bold text-start">{{ order.customer.name }}</span>
+                <span class="ms-2 order-number text-muted">#{{ order.id }}</span>
+                <span class="ms-auto">{{ order.payment_type }} • {{ order.total }}</span>
+              </div>
+              <span class="badge badge-custom" :class="getOrderStatusBadge(order)">
+                {{ order.status_label }}
+              </span>
+              <span>
+                {{ order.neighborhood }} - {{ order.distance }}
+              </span>
+              <span>
+                {{ formatOrderSince(order.ordered_since) }}
+              </span>
+            </div>  
+          </template>
+          <div class="d-flex justify-content-center align-items-center h-100" v-else>
+            <loading size="2rem" />
+          </div>
+        </div>
       </div>
       <div class="fapowfoiwa shadow rounded-end">
         <template v-if="selectedOrder !== null && loadingOrder === false">
-          <div class="d-flex">
-            <h5>{{ selectedOrder.customer.name }}</h5>
-            <button class="btn btn-primary btn-sm ms-3">
-              Entrar em Contato
+          <div class="d-flex align-items-center">
+            <h5 class="m-0 me-2">{{ selectedOrder.customer.name }}</h5>
+            <span class="text-muted">#{{ selectedOrder.id }}</span>
+            <button class="btn btn-success btn-sm ms-3" @click="contactCustomer(selectedOrder.customer)">
+              <i class="fa-brands fa-whatsapp"></i>
             </button>
           </div>
-          <span class="text-muted">#{{ selectedOrder.id }}</span>
-          <span>Pedido realizado às: {{ selectedOrder.created_at_label }}</span>
-          <div class="border rounded bg-white p-3 my-3">
-            <div class="d-flex">
-              <span>1x</span>
-              <h6 class="ms-2 m-0">Prato principal do cardápio</h6>
-              <span class="m-auto">R$ 38,99</span>
-            </div>
+          <div>
+            <span>{{ selectedOrder.payment.type_label }}</span> • 
+            <span>{{ selectedOrder.delivery.type_label }}</span>
           </div>
-          <div class="">
+          <div class="d-flex">
+            <component :is="deliveryComponent" :address="selectedOrder.address" />
+          </div>
+          <span>Pedido realizado às: {{ selectedOrder.created_at }}</span>
+          <div class="border rounded bg-light p-2" v-for="(product, key) in selectedOrder.products.concat(selectedOrder.products)" :key="key">
+            <div class="d-flex align-items-center">
+              <span class="me-2">{{ product.amount }}x</span>
+              <h6 class="m-0">{{ product.name }}</h6>
+              <span class="ms-auto">{{ product.value }}</span>
+            </div>
+            <p class="m-0">{{ product.observation }}</p>
+          </div>
+          <table class="align-self-end w-50 mt-2">
+            <tr>
+              <td>Produtos</td>
+              <td class="text-end">{{ selectedOrder.products_total }}</td>
+            </tr>
+            <tr>
+              <td>Taxa de Entrega</td>
+              <td class="text-end">{{ selectedOrder.delivery_fee }}</td>
+            </tr>
+            <tr v-if="selectedOrder.discount">
+              <td>Desconto</td>
+              <td class="text-end">{{ selectedOrder.discount }}</td>
+            </tr>
+            <tr class="border-top">
+              <td>Total</td>
+              <td class="text-end">{{ selectedOrder.total }}</td>
+            </tr>
+          </table>
+          <div>
             <button class="btn btn-primary btn-sm me-3" @click="doNextStep()" v-if="showButtonNextStep">
               {{ nextStepButton.label }}
             </button>
@@ -54,8 +90,8 @@
             </button>
           </div>
         </template>
-        <div v-else-if="loadingOrder === true">
-          <loading />
+        <div class="d-flex justify-content-center align-items-center h-100" v-else-if="loadingOrder === true">
+          <loading size="3rem" />
         </div>
         <div class="d-flex flex-column h-100 align-items-center justify-content-center" v-else>
           <i class="fas fa-arrow-left text-primary" style="font-size: 2rem;"></i>
@@ -73,11 +109,15 @@ import Loading from '@/components/Loading.vue';
 import { request } from '@/js/apiStore';
 import { CANCELED, DISPATCHED, getButton } from '@/js/OrderStatus';
 import debounce from 'lodash.debounce'
+import Delivery from '@/views/OrderManager/Shipping/Delivery.vue'
+import OnSite from '@/views/OrderManager/Shipping/OnSite.vue'
 
 export default {
   components: {
     BaseIndex,
-    Loading
+    Loading,
+    Delivery,
+    OnSite
   },
   data: () => {
     return {
@@ -104,6 +144,17 @@ export default {
     },
     showButtonCanceled() {
       return this.orderIsCanceled === false && this.orderIsDispached === false
+    },
+    showAddress() {
+      return this.selectedOrder.delivery.type === 1
+    },
+    deliveryComponent() {
+      const options = {
+        1: 'Delivery',
+        3: 'OnSite'
+      }
+
+      return options[this.selectedOrder.delivery.type]
     }
   },
   mounted() {
@@ -111,6 +162,7 @@ export default {
   },
   methods: {
     load() {
+      this.orders = null
       request(this.$route.params.slug)
         .get('order-manager', { params: { ...this.filters } })
         .then(({ data }) => {
@@ -143,7 +195,7 @@ export default {
         this.loadOrder(this.selectedOrder)
       })
     },
-    loadOrderOnIndex(order) {
+    loadOrderFromIndex(order) {
       if (this.selectedOrder?.id === order.id) return
       this.loadOrder(order)
     },
@@ -158,6 +210,22 @@ export default {
         }).finally(() => {
           this.loadingOrder = false
         })
+    },
+    contactCustomer(customer) {
+      const url = `https://api.whatsapp.com/send/?phone=55${customer.cellphone}&text=Olá&type=phone_number`
+      window.open(url, '_blank').focus()
+    },
+    clearSearch() {
+      this.filters.id = null
+      this.load()
+    },
+    formatOrderSince(ordered_since) {
+      if (ordered_since < 60) {
+        return `${ordered_since} segundos atrás`
+      }
+
+      const minutes = Math.floor(ordered_since / 60)
+      return `${minutes} minutos atrás`
     },
     doSearch: debounce(function() { this.load() }, 500)
   }
@@ -175,16 +243,24 @@ export default {
 .waopfjoawp {
   display: flex;
   flex-direction: column;
-  width: 25%;
+  width: 30%;
   height: 100%;
-  overflow: auto;
   border-top: 1px solid #ccc;
   border-left: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
 }
 
-.waopfjoawp::-webkit-scrollbar {
-  display: none;
+.foiawjfiwafawi {
+  height: 100%;
+  overflow: auto;
+}
+
+.foiawjfiwafawi::-webkit-scrollbar {
+  width: 5px;
+}
+
+.foiawjfiwafawi::-webkit-scrollbar-thumb {
+  background-color: var(--primary)
 }
 
 .awonjfowajf {
@@ -193,8 +269,9 @@ export default {
   flex-direction: column;
   border-bottom: 1px solid #ccc;
   border-right: 1px solid #ccc;
-  padding: 1rem;
+  padding: .8rem;
   cursor: pointer;
+  gap: 3px;
 }
 
 .awonjfowajf.selected {
@@ -212,16 +289,21 @@ export default {
   border-bottom: 1px solid #ccc;
   border-right: 1px solid #ccc;
   background-color: #fff;
+  gap: 5px;
+  overflow: auto;
 }
 
-.dawpokfojw {
+.badge-custom {
   font-weight: 500;
   width: fit-content;
 }
 
-.fioawfwafjwa {
-  padding: 1rem;
-  border-right: 1px solid #ccc;
+.podawkopfjawojfwaoif { 
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+  padding: 7px;
 }
 
 </style>

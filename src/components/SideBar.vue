@@ -4,7 +4,7 @@
       <button class="btn" @click="toggleCollapsed()">
         <span :class="{ 'fas fa-chevron-left float-end': collapsed === false, 'fas fa-chevron-right': collapsed === true }"></span>
       </button>
-      <div class="d-flex align-items-center text-center mb-2" v-if="collapsed === false">
+      <div data-bs-toggle="popover" class="d-flex align-items-center text-center mb-2" v-if="collapsed === false">
         <i class="fas fa-store"></i>
         <div>
           <h6 class="m-0">{{ store.name }}</h6>
@@ -30,6 +30,7 @@
 <script>
 import { request } from '@/js/apiStore'
 import Loading from './Loading.vue'
+import { Popover } from 'bootstrap'
 
 export default {
   components: {
@@ -55,6 +56,17 @@ export default {
       this.menus = data.sidebar
       this.store = data.store
       this.loading = false
+
+      this.$nextTick(() => {
+        const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+        popoverTriggerList.map(popoverTriggerEl => new Popover(popoverTriggerEl, {
+          title: 'Horários',
+          content: '<strong>Teste</strong>',
+          trigger: 'hover',
+          delay: 200,
+          html: true
+        }))
+      })
     },
     toggleCollapsed() {
       this.collapsed = !this.collapsed
@@ -81,7 +93,6 @@ export default {
   .wraper ul {
     overflow: auto;
     padding: 0;
-    /* height: 100vh; */
   }
 
   .wraper ul::-webkit-scrollbar {

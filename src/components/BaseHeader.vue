@@ -4,6 +4,9 @@
       <i class="fas fa-chevron-left"></i>
     </button>
     <div class="d-flex ms-auto">
+      <button class="" @click="toggleTheme()">
+        <i class="fa-solid fa-circle-half-stroke"></i>
+      </button>
       <button class="icon-bell text-muted me-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
         <i class="fa-regular fa-bell"></i>
       </button>
@@ -15,7 +18,7 @@
 </template>
 
 <script>
-import { mapState } from 'pinia';
+import { mapState } from 'pinia'
 import { useUserStore } from '@/stores/user'
 
 export default {
@@ -27,6 +30,17 @@ export default {
     },
     showButton() {
       return this.$route.name !== 'stores.choose'
+    }
+  },
+  mounted() {
+    window.Echo.channel('notifications')
+      .listen('.message', (event) => {
+        this.$notify(event.message)
+      })
+  },
+  methods: {
+    toggleTheme() {
+      document.createAttribute('data-bs-theme', 'dark')
     }
   }
 }
