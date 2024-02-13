@@ -11,6 +11,7 @@ import CustomerRouters from '@/router/modules/Customer.js'
 import ScheduleRouters from '@/router/modules/Schedule.js'
 import OrderRouters from '@/router/modules/Order.js'
 import AddressRouters from '@/router/modules/Address.js'
+import { useUserStore } from '@/stores/user'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,6 +21,9 @@ const router = createRouter({
       component: () => import('@/layout/Authenticated.vue'),
       name: 'index',
       redirect: '/',
+      meta: {
+        requiresAuth: true
+      },
       children: [
         {
           path: '/',
@@ -73,6 +77,20 @@ const router = createRouter({
       component: () => import('@/views/NotFound.vue')
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth) {
+    const user = useUserStore()
+    
+    if (user.token !== null) {
+      next()
+    } else {
+      next('/login')
+    }
+  } else {
+    next()
+  }
 })
 
 export default router

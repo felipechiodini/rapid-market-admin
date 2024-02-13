@@ -5,9 +5,11 @@ import App from './App.vue'
 import Echo from 'laravel-echo'
 import Pusher from 'pusher-js'
 import router from './router'
-import Notifications from '@kyvg/vue3-notification'
+import PrimeVue from 'primevue/config';
+import ToastService from 'primevue/toastservice';
 
 import './assets/main.scss'
+import 'primevue/resources/themes/aura-light-green/theme.css'
 
 window.Pusher = Pusher
 
@@ -26,7 +28,8 @@ const app = createApp(App)
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 
-app.use(Notifications)
+app.use(ToastService);
+app.use(PrimeVue)
 app.use(pinia)
 app.use(router)
 app.mount('#app')

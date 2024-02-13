@@ -106,7 +106,7 @@
 <script>
 import BaseIndex from '@/components/BaseIndex.vue'
 import Loading from '@/components/Loading.vue';
-import { request } from '@/js/apiStore';
+import { requesFromStore } from '@/js/apiStore';
 import { CANCELED, DISPATCHED, getButton } from '@/js/OrderStatus';
 import debounce from 'lodash.debounce'
 import Delivery from '@/views/OrderManager/Shipping/Delivery.vue'
@@ -163,7 +163,7 @@ export default {
   methods: {
     load() {
       this.orders = null
-      request(this.$route.params.slug)
+      requesFromStore(this.$route.params.slug)
         .get('order-manager', { params: { ...this.filters } })
         .then(({ data }) => {
           this.orders = data.orders
@@ -181,7 +181,7 @@ export default {
       return statusColor[order.status]
     },
     doNextStep() {
-      request(this.$route.params.slug)
+      requesFromStore(this.$route.params.slug)
         .post(this.nextStepButton.request(this.selectedOrder.id))
         .then(({ data }) => {
           const orderInIndex = this.orders.find(order => order.id === this.selectedOrder.id)
@@ -191,7 +191,7 @@ export default {
         })
     },
     cancelOrder() {
-      request(this.$route.params.slug).post(`order-manager/${this.selectedOrder.id}/cancel`).then(({ data }) => {
+      requesFromStore(this.$route.params.slug).post(`order-manager/${this.selectedOrder.id}/cancel`).then(({ data }) => {
         this.loadOrder(this.selectedOrder)
       })
     },
@@ -203,7 +203,7 @@ export default {
       this.loadingOrder = true
       this.selectedOrder = { id: order.id }
 
-      request(this.$route.params.slug)
+      requesFromStore(this.$route.params.slug)
         .get(`order-manager/${order.id}`)
         .then(({ data }) => {
           this.selectedOrder = data.order

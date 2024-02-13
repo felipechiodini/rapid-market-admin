@@ -1,1 +1,1 @@
-app_name = 'dawds'
+export const APP_NAME = 'Burguer System'

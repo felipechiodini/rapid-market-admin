@@ -43,7 +43,6 @@ export const useUserStore = defineStore('user', {
       Api.post('auth/logout').then(() => {
         this.token = null
         this.user = null
-        this.menu = null
         Router.push({ name: 'auth.login' })
       })
     }

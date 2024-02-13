@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { request } from '@/js/apiStore'
+import { requesFromStore } from '@/js/apiStore'
 import Loading from './Loading.vue'
 import { Popover } from 'bootstrap'
 
@@ -52,7 +52,7 @@ export default {
   methods: {
     async load() {
       this.loading = true
-      const { data } = await request(this.$route.params.slug).get('store')
+      const { data } = await requesFromStore(this.$route.params.slug).get('store')
       this.menus = data.sidebar
       this.store = data.store
       this.loading = false

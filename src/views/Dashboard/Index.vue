@@ -9,7 +9,7 @@
 <script>
 import BaseIndex from '@/components/BaseIndex.vue';
 import Loading from '@/components/Loading.vue';
-import { request } from '@/js/apiStore';
+import { requesFromStore } from '@/js/apiStore';
 import Chart from 'chart.js/auto'
 
 export default {
@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     load() {
-      request(this.$route.params.slug)
+      requesFromStore(this.$route.params.slug)
         .get('dashboard')
         .then(({ data }) => {
           this.dashboard = data.dashboard

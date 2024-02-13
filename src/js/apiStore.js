@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useUserStore } from '@/stores/user'
 
-export const request = (slug, onError = null) => {
+export const requesFromStore = (slug, onError = null) => {
   const request = axios.create({
     baseURL: `${import.meta.env.VITE_API_BASE_URL}/${slug}`,
     headers: {
@@ -22,4 +22,8 @@ export const request = (slug, onError = null) => {
   }
 
   return request
+}
+
+export const request = () => {
+  
 }

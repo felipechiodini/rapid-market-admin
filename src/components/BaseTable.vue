@@ -52,7 +52,7 @@
 
 <script>
 import Loading from './Loading.vue'
-import { request } from '@/js/apiStore.js'
+import { requesFromStore } from '@/js/apiStore.js'
 
 export default {
   name: 'BaseTable',
@@ -115,7 +115,7 @@ export default {
       const page = this.$route.query.page ?? 1
       const per_page = this.$route.query.per_page ?? 10
 
-      request(this.$route.params.slug).get(this.request, { params: { page, per_page }}).then(({ data }) => {
+      requesFromStore(this.$route.params.slug).get(this.request, { params: { page, per_page }}).then(({ data }) => {
         this.page = data.page
         this.columns = data.columns
       }).finally(() => {

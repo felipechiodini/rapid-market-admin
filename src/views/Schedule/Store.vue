@@ -22,7 +22,7 @@
 <script>
 import BaseStore from '@/components/BaseStore.vue'
 import { vMaska } from "maska"
-import { request } from '@/js/apiStore.js'
+import { requesFromStore } from '@/js/apiStore.js'
 
 export default {
   directives: { maska: vMaska },
@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     store() {
-      return request(this.$route.params.slug).post(`customer`, this.form)
+      return requesFromStore(this.$route.params.slug).post(`customer`, this.form)
     },
     onCreated(data) {
       this.$router.push({

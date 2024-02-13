@@ -25,8 +25,12 @@ export default {
   computed: {
     ...mapState(useUserStore, ['user']),
     initialLetters() {
-      const firstLetters = this.user.name.split(' ').map(i => i.charAt(0))
-      return firstLetters[0] + firstLetters.pop()
+      try {
+        const firstLetters = this.user?.name.split(' ').map(i => i.charAt(0))
+        return firstLetters[0] + firstLetters.pop()
+      } catch (error) {
+        return ''        
+      }
     },
     showButton() {
       return this.$route.name !== 'stores.choose'

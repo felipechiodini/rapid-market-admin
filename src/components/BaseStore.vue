@@ -46,7 +46,7 @@ export default {
   methods: {
     onSubmit() {
       this.submiting = true
-      this.request().then(({ data }) => {
+      this.requesFromStore().then(({ data }) => {
         this.onCreated(data)
       }).catch((err) => {
         console.log(err)
