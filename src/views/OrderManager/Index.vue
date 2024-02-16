@@ -1,6 +1,11 @@
 <template>
   <div>
     <base-index title="Gestor de Pedidos">
+    <template #buttons>
+      <button class="btn btn-sm btn-primary">
+        Pausa de Emergência
+      </button>
+    </template>
     <div class="doijawodiaw rounded d-flex mt-4">
       <div class="waopfjoawp rounded-start">
         <div class="p-2 border-bottom border-end">

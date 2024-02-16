@@ -11,31 +11,18 @@
           <thead>
             <tr>
               <th v-for="(column, key) in columns" :key="key">
-                {{ column.label }}
+                {{ column }}
               </th>
             </tr>
           </thead>
-          <slot name="content" :rows="data"></slot>
+          <tbody>
+            <slot name="content" :rows="data"></slot>
+          </tbody>
         </table>
-        <nav class="ms-auto">
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link" href="#">Previous</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">Next</a>
-            </li>
-          </ul>
-        </nav>
+        <BasePagination 
+          v-model="test"
+          :perPage="10"
+          :total="page.total" />
       </div>
     </template>
     <div class="d-flex justify-content-center my-5" v-else-if="loading === true">
@@ -47,28 +34,31 @@
       </div>
     </div>
   </div>
-  
 </template>
 
 <script>
 import Loading from './Loading.vue'
 import { requesFromStore } from '@/js/apiStore.js'
+import BasePagination from '@/components/BasePagination.vue'
 
 export default {
   name: 'BaseTable',
   components: {
-    Loading
-  },
+    Loading,
+    BasePagination
+},
   props: ['request'],
   watch: {
     '$route.query': function() {
-      this.load()
+      this.fetchPage()
     }
   },
   data: () => {
     return {
       page: null,
-      loading: true
+      loading: true,
+      applyedFilters: null,
+      test: 10
     }
   },
   computed: {
@@ -106,21 +96,34 @@ export default {
     }
   },
   mounted() {
-    this.load()
+    this.fetchPage()
   },
   methods: {
-    load() {
+    fetchPage() {
       this.loading = true
 
       const page = this.$route.query.page ?? 1
       const per_page = this.$route.query.per_page ?? 10
+      const filters = this.applyedFilters
 
-      requesFromStore(this.$route.params.slug).get(this.request, { params: { page, per_page }}).then(({ data }) => {
-        this.page = data.page
-        this.columns = data.columns
-      }).finally(() => {
-        this.loading = false
-      })
+      requesFromStore(this.$route.params.slug)
+        .get(this.request, { params: { page, per_page, filters }})
+        .then(({ data }) => {
+          this.page = data.page
+          this.columns = data.columns
+
+          this.filters = data.columns.map(column => ({
+            name: column.name,
+            label: column.label,
+            operator: null,
+            value: null,
+          }))
+
+        }).catch((error) => {
+
+        }).finally(() => {
+          this.loading = false
+        })
     },
   }
 

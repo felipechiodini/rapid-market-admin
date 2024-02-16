@@ -2,7 +2,7 @@
   <div>
     <base-index title="Produtos">
       <template #buttons>
-        <button class="btn btn-primary btn-sm" :to="{ name: 'product.store' }">
+        <button class="btn btn-primary btn-sm" @click="$router.push({ name: 'product.store' })">
           Novo Produto
         </button>
       </template>
@@ -11,13 +11,20 @@
           <th>Nome</th>
         </template>
         <template #content="{ rows }">
-          <tbody>
-            <tr v-for="(customer, key) in rows" :key="key">
-              <td>
-                {{ customer.name }}
-              </td>
-            </tr>
-          </tbody>
+          <tr v-for="(product, key) in rows" :key="key">
+            <td>
+              {{ product.name }}
+            </td>
+            <td>
+              {{ product.price_from }}
+            </td>
+            <td>
+              {{ product.price_to }}
+            </td>
+            <td>
+              <img class="fopawjfopawjofwa rounded" :src="product.src" alt="">
+            </td>
+          </tr>
         </template>
       </base-table>
     </base-index>
@@ -36,3 +43,14 @@ export default {
 
 }
 </script>
+
+
+<style scoped>
+
+.fopawjfopawjofwa {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+}
+
+</style>

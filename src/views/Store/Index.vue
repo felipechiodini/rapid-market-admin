@@ -41,7 +41,7 @@ export default {
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    height: 80vh;
   }
 
   .dwaiopfjiowajfwai {

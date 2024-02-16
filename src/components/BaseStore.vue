@@ -32,10 +32,7 @@ export default {
       type: String
     },
     request: {
-
-    },
-    onCreated: {
-
+      required: true
     }
   },
   data: () => {
@@ -46,7 +43,7 @@ export default {
   methods: {
     onSubmit() {
       this.submiting = true
-      this.requesFromStore().then(({ data }) => {
+      this.request().then(({ data }) => {
         this.onCreated(data)
       }).catch((err) => {
         console.log(err)

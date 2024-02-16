@@ -17,6 +17,11 @@
               <td>
                 {{ category.name }}
               </td>
+              <td>
+                <button @click="$router.push({ name: 'category.update', params: { category_id: category.id }})" class="btn btn-sm btn-primary">
+                  Editar
+                </button>
+              </td>
             </tr>
           </tbody>
         </template>

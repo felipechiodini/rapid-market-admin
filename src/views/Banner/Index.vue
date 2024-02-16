@@ -2,7 +2,9 @@
   <div>
     <base-index title="Banners">
       <template #buttons>
-        <button class="btn btn-sm btn-primary">Novo Banner</button>
+        <button class="btn btn-sm btn-primary" @click="$router.push({ name: 'banner.store' })">
+          Novo Banner
+        </button>
       </template>
       <base-table class="table" request="banner">
         <template #header>
@@ -11,12 +13,12 @@
         </template>
         <template #content="{ rows }">
           <tbody>
-            <tr v-for="(customer, key) in rows" :key="key">
+            <tr v-for="(banner, key) in rows" :key="key">
               <td>
-                {{ customer.name }}
+                {{ banner.name }}
               </td>
               <td>
-                <img height="70px" :src="customer.src" alt="">
+                <img height="70px" :src="banner.src" alt="">
               </td>
             </tr>
           </tbody>
