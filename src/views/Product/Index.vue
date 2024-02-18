@@ -13,6 +13,9 @@
         <template #content="{ rows }">
           <tr v-for="(product, key) in rows" :key="key">
             <td>
+              <img class="fopawjfopawjofwa rounded" :src="product.src" alt="">
+            </td>
+            <td>
               {{ product.name }}
             </td>
             <td>
@@ -20,9 +23,6 @@
             </td>
             <td>
               {{ product.price_to }}
-            </td>
-            <td>
-              <img class="fopawjfopawjofwa rounded" :src="product.src" alt="">
             </td>
           </tr>
         </template>

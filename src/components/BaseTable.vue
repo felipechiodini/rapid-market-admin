@@ -1,12 +1,8 @@
 <template>
-  <div class="table-responsive p-3">
+  <div class="border rounded">
+    <Filters :filters="filters" @apply="applyFilters" />
     <template v-if="loading === false && hasData">
-      <div class="d-flex flex-column border rounded bg-white">
-        <div class="d-flex border-bottom w-100">
-          <button class="btn btn-sm m-2 ms-auto">
-            <i class="fas fa-filter"></i>
-          </button>
-        </div>
+      <div class="table-responsive">
         <table class="table">
           <thead>
             <tr>
@@ -40,12 +36,14 @@
 import Loading from './Loading.vue'
 import { requesFromStore } from '@/js/apiStore.js'
 import BasePagination from '@/components/BasePagination.vue'
+import Filters from '@/components/Filters.vue'
 
 export default {
   name: 'BaseTable',
   components: {
     Loading,
-    BasePagination
+    BasePagination,
+    Filters
 },
   props: ['request'],
   watch: {
@@ -55,9 +53,10 @@ export default {
   },
   data: () => {
     return {
-      page: null,
       loading: true,
-      applyedFilters: null,
+      page: null,
+      columns: null,
+      filters: {},
       test: 10
     }
   },
@@ -99,12 +98,16 @@ export default {
     this.fetchPage()
   },
   methods: {
-    fetchPage() {
+    applyFilters(filters) {
+      this.fetchPage(filters)
+    },
+    fetchPage(filters = null) {
+      console.log(filters)
+
       this.loading = true
 
       const page = this.$route.query.page ?? 1
       const per_page = this.$route.query.per_page ?? 10
-      const filters = this.applyedFilters
 
       requesFromStore(this.$route.params.slug)
         .get(this.request, { params: { page, per_page, filters }})
@@ -112,12 +115,9 @@ export default {
           this.page = data.page
           this.columns = data.columns
 
-          this.filters = data.columns.map(column => ({
-            name: column.name,
-            label: column.label,
-            operator: null,
-            value: null,
-          }))
+          data.filters.forEach(filter => {
+            this.filters[filter.column] = filter
+          })
 
         }).catch((error) => {
 
