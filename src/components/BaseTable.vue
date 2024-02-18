@@ -6,7 +6,7 @@
         <table class="table">
           <thead>
             <tr>
-              <th v-for="(column, key) in columns" :key="key">
+              <th v-for="(column, key) in columns" :key="key" @click="sort(column)">
                 {{ column }}
               </th>
             </tr>
@@ -100,6 +100,17 @@ export default {
   methods: {
     applyFilters(filters) {
       this.fetchPage(filters)
+    },
+    sort(column) {
+      this.page.data.sort((a, b) => {
+        if (a.name > b.name) {
+          return 1
+        } else if (a.name < b.name) { 
+          return -1
+        } else {
+          return 0
+        }
+      })
     },
     fetchPage(filters = null) {
       console.log(filters)

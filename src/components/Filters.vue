@@ -32,16 +32,31 @@
           </div>
           <div class="col">
             <label for="filter-value">Valor</label>
-            <input class="form-control" id="filter-value" type="text" v-model="rule.value">
+            <input
+              class="form-control"
+              id="filter-value"
+              type="text"
+              v-model="rule.value">
           </div>
         </div>
       </div>
     </template>
     <div class="d-flex justify-content-center">
-      <button class="btn btn-primary btn-sm" @click="addRule('name')">
-        <span class="fas fa-plus me-2"></span>
-        Nova Regra
-      </button>
+      <div class="dropdown">
+        <button class="btn btn-primary btn-sm" data-bs-toggle="dropdown">
+          <span class="fas fa-plus me-2"></span>
+          Nova Regra
+        </button>
+        <div class="dropdown-menu">
+          <button
+            @click="addRule(filter.column)"
+            class="btn btn-sm btn-primary me-1"
+            v-for="(filter, key) in filters"
+            :key="key">
+            {{ filter.label }}
+          </button>
+        </div>
+      </div>
     </div>
     <div>
       <button class="btn btn-primary btn-sm" @click="applyFilters()">
