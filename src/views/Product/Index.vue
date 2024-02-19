@@ -6,10 +6,7 @@
           Novo Produto
         </button>
       </template>
-      <base-table class="table" request="product">
-        <template #header>
-          <th>Nome</th>
-        </template>
+      <base-table class="my-3" request="product">
         <template #content="{ rows }">
           <tr v-for="(product, key) in rows" :key="key">
             <td>
@@ -23,6 +20,11 @@
             </td>
             <td>
               {{ product.price_to }}
+            </td>
+            <td>
+              <router-link :to="{ name: 'product.update', params: { product_id: product.id }}">
+                Editar
+              </router-link>
             </td>
           </tr>
         </template>

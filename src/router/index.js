@@ -20,7 +20,11 @@ const router = createRouter({
       path: '/',
       component: () => import('@/layout/Authenticated.vue'),
       name: 'index',
-      redirect: '/',
+      redirect: to => {
+        return {
+          name: 'stores.choose'
+        }
+      },
       meta: {
         requiresAuth: true
       },
@@ -31,9 +35,46 @@ const router = createRouter({
           component: () => import('@/views/Store/Index.vue'),
         },
         {
-          path: '/perfil',
+          path: '/nova-loja',
+          name: 'stores.create',
+          component: () => import('@/views/Store/Create.vue'),
+        },
+        {
+          path: '/minha-conta',
           name: 'profile.index',
-          component: () => import('@/views/Profile/Index.vue')
+          redirect: to => {
+            return {
+              name: 'profile.myaccount'
+            }
+          },
+          component: () => import('@/views/Profile/Index.vue'),
+          children: [
+            {
+              path: '/minha-conta',
+              name: 'profile.myaccount',
+              component: () => import('@/views/Profile/MyAccount.vue'),
+            },
+            {
+              path: '/minha-conta/assinatura',
+              name: 'profile.subscription',
+              component: () => import('@/views/Profile/Subscription.vue')
+            },
+            {
+              path: '/minha-conta/usuarios',
+              name: 'profile.users',
+              component: () => import('@/views/Profile/Subscription.vue')
+            },
+            {
+              path: '/minha-conta/permissoes',
+              name: 'profile.permissions',
+              component: () => import('@/views/Profile/Subscription.vue')
+            },
+            {
+              path: '/minha-conta/compras-historico',
+              name: 'profile.purchases',
+              component: () => import('@/views/Profile/Subscription.vue')
+            },
+          ]
         },
         {
           path: '/:slug',

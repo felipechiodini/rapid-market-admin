@@ -9,14 +9,17 @@
               <th v-for="(column, key) in columns" :key="key" @click="sort(column)">
                 {{ column }}
               </th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             <slot name="content" :rows="data"></slot>
           </tbody>
         </table>
-        <BasePagination 
-          v-model="test"
+        <Paginator :page="currentPage" :first="perPage" :rows="10" :totalRecords="page.total" :rowsPerPageOptions="[10, 20, 30]" />
+
+        <Pagination 
+          v-model="currentPage"
           :perPage="10"
           :total="page.total" />
       </div>
@@ -35,15 +38,17 @@
 <script>
 import Loading from './Loading.vue'
 import { requesFromStore } from '@/js/apiStore.js'
-import BasePagination from '@/components/BasePagination.vue'
+import Pagination from '@/components/Pagination.vue'
 import Filters from '@/components/Filters.vue'
+import Paginator from 'primevue/paginator';
 
 export default {
   name: 'BaseTable',
   components: {
     Loading,
-    BasePagination,
-    Filters
+    Pagination,
+    Filters,
+    Paginator
 },
   props: ['request'],
   watch: {
@@ -57,7 +62,6 @@ export default {
       page: null,
       columns: null,
       filters: {},
-      test: 10
     }
   },
   computed: {
@@ -69,7 +73,7 @@ export default {
     },
     currentPage: {
       get: function() {
-        return this.$route.query.page ?? 1
+        return parseInt(this.$route.query.page) ?? 1
       },
       set: function(val) {
         this.$router.replace({
@@ -113,8 +117,6 @@ export default {
       })
     },
     fetchPage(filters = null) {
-      console.log(filters)
-
       this.loading = true
 
       const page = this.$route.query.page ?? 1

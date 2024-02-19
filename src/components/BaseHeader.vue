@@ -4,9 +4,6 @@
       <i class="fas fa-chevron-left"></i>
     </button>
     <div class="d-flex ms-auto">
-      <button class="" @click="toggleTheme()">
-        <i class="fa-solid fa-circle-half-stroke"></i>
-      </button>
       <button class="icon-bell text-muted me-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
         <i class="fa-regular fa-bell"></i>
       </button>

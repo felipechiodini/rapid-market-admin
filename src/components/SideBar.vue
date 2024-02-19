@@ -9,13 +9,13 @@
         <div>
           <h6 class="m-0">{{ store.name }}</h6>
           <span style="font-size: .8rem;">
-            <span class="fas fa-circle text-success"></span>
-            Loja Aberta
+            <span class="fas fa-circle" :class="{ 'text-success': store.is_open }"></span>
+            {{ store.is_open ? 'Loja Aberta' : 'Loja Fechada' }}
           </span>
         </div>
       </div>
       <ul class="m-0">
-        <li v-for="(menu, key) in menus" :key="key">
+        <li v-for="(menu, key) in sidebar" :key="key">
           <router-link class="rounded mb-3" :class="{ 'selected': menu.name === $route.name }" :to="{ name: menu.name }" v-if="!menu.childrens">
             <i :class="menu.icon" />
             <span>{{ menu.label }}</span>
@@ -40,9 +40,8 @@ export default {
     return {
       collapsed: false,
       store: null,
-      menus: null,
-      loading: true,
-      open: false
+      sidebar: null,
+      loading: true
     }
   },
   mounted() {
@@ -50,11 +49,21 @@ export default {
     this.load()
   },
   methods: {
-    async load() {
+    load() {
       this.loading = true
-      const { data } = await requesFromStore(this.$route.params.slug).get('store')
-      this.menus = data.sidebar
-      this.store = data.store
+
+      requesFromStore(this.$route.params.slug)
+        .get('store')
+        .then(({ data }) => {
+          this.store = data.store
+        })
+
+      requesFromStore(this.$route.params.slug)
+        .get('sidebar')
+        .then(({ data }) => {
+          this.sidebar = data.sidebar
+        })
+      
       this.loading = false
 
       this.$nextTick(() => {

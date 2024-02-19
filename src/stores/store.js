@@ -1,13 +1,24 @@
-import { ref, computed } from 'vue'
+import { requesFromStore } from '@/js/apiStore'
 import { defineStore } from 'pinia'
 
-export const useStore = defineStore('counter', () => {
-
-  const store = ref({})
-
-  function setStore(store) {
-    store.value = store
+export const useStore = defineStore('store', {
+  state: () => {
+    return {
+      name: null,
+      slug: null,
+      isOpen: null,
+    }
+  },
+  actions: {
+    getStore(slug) {
+      requesFromStore(slug)
+        .then(({ data }) => {
+          this.name = data.name
+          this.slug = data.slug
+          this.isOpen = data.isOpen
+        }).catch((err) => {
+          
+        });
+    }
   }
-
-  return { store, setStore }
 })

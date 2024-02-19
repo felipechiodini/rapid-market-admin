@@ -6,22 +6,16 @@
           Novo Banner
         </button>
       </template>
-      <base-table class="table" request="banner">
-        <template #header>
-          <th>Nome</th>
-          <th></th>
-        </template>
+      <base-table class="table my-4" request="banner">
         <template #content="{ rows }">
-          <tbody>
-            <tr v-for="(banner, key) in rows" :key="key">
-              <td>
-                {{ banner.name }}
-              </td>
-              <td>
-                <img height="70px" :src="banner.src" alt="">
-              </td>
-            </tr>
-          </tbody>
+          <tr v-for="(banner, key) in rows" :key="key">
+            <td>
+              {{ banner.name }}
+            </td>
+            <td>
+              <img height="70px" :src="banner.src" alt="">
+            </td>
+          </tr>
         </template>
       </base-table>
     </base-index>

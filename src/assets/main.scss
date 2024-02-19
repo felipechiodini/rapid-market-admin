@@ -20,4 +20,8 @@ $body-color: #434343;
     background: #555;
 }
 
+.clickable {
+    cursor: pointer;
+}
+
 @import "bootstrap/scss/bootstrap.scss";

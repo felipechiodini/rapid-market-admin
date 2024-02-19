@@ -1,15 +1,22 @@
 <template>
   <div class="opdakwofwo">
-    <h3>Burguer System</h3>
-    <div class="waopkfawpkfw rounded shadow-sm">
-      <div class="dwaiopfjiowajfwai rounded-top">
-        <h6>Lojas</h6>
+    <div class="waopkfawpkfw rounded">
+      <div class="d-flex mb-3">
+        <h5>Burguer System</h5>
+        <div class="ms-auto">
+          <button class="btn btn-primary btn-sm" @click="$router.push({ name: 'stores.create' })">
+            <span class="fas fa-plus"></span>
+            Nova Loja
+          </button>
+        </div>
       </div>
-      <base-button v-for="(store, key) in stores" :key="key" @click="$router.push({ name: 'dashboard.index', params: { slug: store.slug } })">
+      <div class="dwaiopfjiowajfwai rounded-top">
+        <h6>Minhas Lojas</h6>
+      </div>
+      <base-button class="rounded" v-for="(store, key) in stores" :key="key" @click="$router.push({ name: 'dashboard.index', params: { slug: store.slug } })">
         {{ store.name }}
       </base-button>
     </div>
-    <RouterView />
   </div>
 </template>
 

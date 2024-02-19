@@ -2,12 +2,12 @@
   <div class="d-flex border-bottom w-100">
     <button class="btn btn-sm m-2 ms-auto" @click="toogleFilters()">
       <i class="fas fa-filter"></i>
-      <span>{{ rules.length }}</span>
+      <span class="ms-2">{{ rules.length }}</span>
     </button>
   </div>
-  <div class="d-flex flex-column p-3 justify-content-center border-bottom" v-if="show === true">
-    <div class="d-flex" @click="clearFilters()">
-      <button class="btn btn-sm text-danger fw-bold ms-auto">
+  <div @keypress.enter="applyFilters()" class="d-flex flex-column p-3 justify-content-center border-bottom" v-if="show === true">
+    <div class="d-flex">
+      <button class="btn btn-sm text-danger fw-bold ms-auto" @click="clearFilters()">
         Limpar
       </button>
     </div>
