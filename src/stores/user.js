@@ -12,6 +12,14 @@ export const useUserStore = defineStore('user', {
   },
   getters: () => {
     return {
+      initialLetters() {
+        try {
+          const firstLetters = this.user?.name.split(' ').map(i => i.charAt(0))
+          return firstLetters[0] + firstLetters.pop()
+        } catch (error) {
+          return ''        
+        }
+      },
       getUser: (state) => {
         return state.user
       },

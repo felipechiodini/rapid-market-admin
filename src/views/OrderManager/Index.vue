@@ -60,7 +60,7 @@
             <component :is="deliveryComponent" :address="selectedOrder.address" />
           </div>
           <span>Pedido realizado às: {{ selectedOrder.created_at }}</span>
-          <div class="border rounded bg-light p-2" v-for="(product, key) in selectedOrder.products.concat(selectedOrder.products)" :key="key">
+          <div class="border rounded bg-light p-2" v-for="(product, key) in selectedOrder.products" :key="key">
             <div class="d-flex align-items-center">
               <span class="me-2">{{ product.amount }}x</span>
               <h6 class="m-0">{{ product.name }}</h6>
@@ -163,6 +163,12 @@ export default {
     }
   },
   mounted() {
+    window.Echo.channel('notifications')
+      .listen('.App\\Events\\OrderCreated', (event) => {
+        this.load()
+        this.$toast.add({ severity: 'info', summary: 'Info', detail: 'Novo Pedido', life: 3000 });
+      })
+
     this.load()
   },
   methods: {
@@ -206,8 +212,6 @@ export default {
     },
     loadOrder(order) {
       this.loadingOrder = true
-      this.selectedOrder = { id: order.id }
-
       requesFromStore(this.$route.params.slug)
         .get(`order-manager/${order.id}`)
         .then(({ data }) => {

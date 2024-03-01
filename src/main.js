@@ -5,8 +5,8 @@ import App from './App.vue'
 import Echo from 'laravel-echo'
 import Pusher from 'pusher-js'
 import router from './router'
-import PrimeVue from 'primevue/config';
-import ToastService from 'primevue/toastservice';
+import PrimeVue from 'primevue/config'
+import ToastService from 'primevue/toastservice'
 import { Money3Directive } from 'v-money3'
 
 import './assets/main.scss'
@@ -30,7 +30,7 @@ const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 
 app.directive('money', Money3Directive)
-app.use(ToastService);
+app.use(ToastService)
 app.use(PrimeVue)
 app.use(pinia)
 app.use(router)

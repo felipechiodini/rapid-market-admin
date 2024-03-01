@@ -3,7 +3,7 @@
     <div class="p-4">
       <h5 class="mb-3">A sua conta</h5>
       <div class="d-flex align-items-center">
-        <Avatar label="P" size="xlarge" shape="circle" />
+        <Avatar :label="initialLetters" size="xlarge" shape="circle" />
         <div class="ms-3">
           <strong>Faça o upload da sua foto de perfil.</strong>
           <small class="d-block">Isto serve para que os membros da sua equipa o reconheçam na Burguer System.</small>
@@ -11,6 +11,7 @@
         <button class="btn btn-secondary btn-sm ms-auto">
           Fazer upload da foto
         </button>
+        {{ initialLetters }}
       </div>
       <hr>
       <div class="d-flex my-4">
@@ -65,13 +66,16 @@
 
 
 <script>
-import { mapActions } from 'pinia';
+import { mapActions, mapState } from 'pinia';
 import { useUserStore } from '@/stores/user';
 import Avatar from 'primevue/avatar';
 
 export default {
   components: {
     Avatar
+  },
+  computed: {
+    ...mapState(useUserStore, ['initialLetters'])
   },
   methods: {
     ...mapActions(useUserStore, ['logout'])
