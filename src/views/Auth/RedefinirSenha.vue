@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import Api from 'api'
+  import { request } from 'api'
 
   export default {
     data: () => {
@@ -31,7 +31,7 @@
     methods: {
       redefinir() {
         this.loadingPassword = true
-        Api.post('auth/change-password', {
+        request().post('auth/change-password', {
           password: this.password,
           token: this.$route.params.token
         }).then(({

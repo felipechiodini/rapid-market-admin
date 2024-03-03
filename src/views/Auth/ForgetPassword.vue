@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Api from '@/js/api'
+import { request } from '@/js/Api.js'
 import BaseButton from '@/components/BaseButton.vue'
 import ButtonGoBack from '@/components/ButtonGoBack.vue'
 
@@ -36,7 +36,7 @@ export default {
       this.submiting = true
 
       try {
-        const { data } = await Api.post('auth/forgot-password', { email: this.email })
+        const { data } = await request().post('auth/forgot-password', { email: this.email })
         this.$bvToast.toast(data.message, { title: 'Sucesso', variant: 'success' })
       } catch (error) {
       }

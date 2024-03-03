@@ -33,12 +33,6 @@ export default {
       return this.$route.name !== 'stores.choose'
     }
   },
-  mounted() {
-    window.Echo.channel('notifications')
-      .listen('.message', (event) => {
-        this.$notify(event.message)
-      })
-  },
   methods: {
     toggleTheme() {
       document.createAttribute('data-bs-theme', 'dark')

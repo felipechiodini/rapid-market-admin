@@ -1,10 +1,7 @@
 <template>
-  <div>
-    <notifications />
-    <base-header />
-    <notifications-bar />
-    <RouterView />
-  </div>
+  <BaseHeader />
+  <NotificationsBar />
+  <RouterView />
 </template>
 
 <script>

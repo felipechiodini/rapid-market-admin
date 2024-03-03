@@ -1,19 +1,10 @@
 <template>
   <div class="wraper" :class="{ 'collapsed': collapsed }">
-    <template v-if="loading === false">
+    <template v-if="loading === false && store">
       <button class="btn" @click="toggleCollapsed()">
         <span :class="{ 'fas fa-chevron-left float-end': collapsed === false, 'fas fa-chevron-right': collapsed === true }"></span>
       </button>
-      <div data-bs-toggle="popover" class="d-flex align-items-center text-center mb-2" v-if="collapsed === false">
-        <i class="fas fa-store"></i>
-        <div>
-          <h6 class="m-0">{{ store.name }}</h6>
-          <span style="font-size: .8rem;">
-            <span class="fas fa-circle" :class="{ 'text-success': store.is_open }"></span>
-            {{ store.is_open ? 'Loja Aberta' : 'Loja Fechada' }}
-          </span>
-        </div>
-      </div>
+      <StoreCard v-if="collapsed === false" :store="store" />
       <ul class="m-0">
         <li v-for="(menu, key) in sidebar" :key="key">
           <router-link class="rounded mb-3" :class="{ 'selected': menu.name === $route.name }" :to="{ name: menu.name }" v-if="!menu.childrens">
@@ -28,13 +19,15 @@
 </template>
 
 <script>
-import { requesFromStore } from '@/js/apiStore'
-import Loading from './Loading.vue'
+import { requesFromStore } from '@/js/Api.js'
+import Loading from '../Loading.vue' 
+import StoreCard from './StoreCard.vue'
 import { Popover } from 'bootstrap'
 
 export default {
   components: {
-    Loading
+    Loading,
+    StoreCard
   },
   data: () => {
     return {
@@ -52,13 +45,13 @@ export default {
     load() {
       this.loading = true
 
-      requesFromStore(this.$route.params.slug)
+      requesFromStore()
         .get('store')
         .then(({ data }) => {
           this.store = data.store
         })
 
-      requesFromStore(this.$route.params.slug)
+      requesFromStore()
         .get('sidebar')
         .then(({ data }) => {
           this.sidebar = data.sidebar

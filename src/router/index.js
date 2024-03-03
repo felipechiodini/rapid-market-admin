@@ -11,6 +11,8 @@ import CustomerRouters from '@/router/modules/Customer.js'
 import ScheduleRouters from '@/router/modules/Schedule.js'
 import OrderRouters from '@/router/modules/Order.js'
 import AddressRouters from '@/router/modules/Address.js'
+import PaymentRouters from '@/router/modules/Payment.js'
+import DeliveryRouters from '@/router/modules/Delivery.js'
 import { useUserStore } from '@/stores/user'
 
 const router = createRouter({
@@ -93,6 +95,8 @@ const router = createRouter({
             ...ScheduleRouters,
             ...OrderRouters,
             ...AddressRouters,
+            ...PaymentRouters,
+            ...DeliveryRouters
           ]
         }
       ]

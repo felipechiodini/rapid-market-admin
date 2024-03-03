@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { requesFromStore } from '@/js/apiStore';
+import { requesFromStore } from '@/js/Api.js';
 import PhotoUploader from '@/components/PhotoUploader.vue';
 import BaseStore from '@/components/BaseStore.vue';
 

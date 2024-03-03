@@ -1,20 +1,20 @@
 <script setup>
-import SideBar from '@/components/SideBar.vue';
+import SideBar from '@/components/SideBar/SideBar.vue'
 
 </script>
 
 <template>
-  <div class="teste">
-    <side-bar />
-    <router-view style="flex-grow: 1; margin-top: 1rem;" />
+  <div class="faopwjfoawjfawjfjawop">
+    <SideBar />
+    <RouterView style="flex-grow: 1; margin-top: 1rem;" />
   </div>
 </template>
 
 <style scoped>
 
-  .teste {
+  .faopwjfoawjfawjfjawop {
     display: flex;
-    height: 92vh;
+    flex-grow: 1;
     overflow: auto;
   }
 

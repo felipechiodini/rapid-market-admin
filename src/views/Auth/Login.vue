@@ -25,7 +25,7 @@
 import BaseButton from '@/components/BaseButton.vue'
 import { mapActions } from 'pinia'
 import { useUserStore } from '@/stores/user.js'
-import Api from '@/js/api'
+import { request } from '@/js/Api.js'
 import useValidationError from '@/js/useValidationErrors.js'
 
 export default {
@@ -48,9 +48,9 @@ export default {
       this.submiting = true
 
       try {
-        const { data } = await Api.post('auth/login', this.form)
+        const { data } = await request().post('auth/login', this.form)
         this.setToken(data.access_token)
-        Api.get('auth/me').then(({ data }) => this.setUser(data))
+        request().get('auth/me').then(({ data }) => this.setUser(data))
         this.$router.push({ name: 'stores.choose' })
       } catch (error) {
         this.errors.record(error)

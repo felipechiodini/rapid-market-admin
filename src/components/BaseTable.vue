@@ -37,7 +37,7 @@
 
 <script>
 import Loading from './Loading.vue'
-import { requesFromStore } from '@/js/apiStore.js'
+import { requesFromStore } from '@/js/Api.js'
 import Pagination from '@/components/Pagination.vue'
 import Filters from '@/components/Filters.vue'
 import Paginator from 'primevue/paginator';

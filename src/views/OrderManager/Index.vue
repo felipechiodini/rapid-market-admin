@@ -111,7 +111,7 @@
 <script>
 import BaseIndex from '@/components/BaseIndex.vue'
 import Loading from '@/components/Loading.vue';
-import { requesFromStore } from '@/js/apiStore';
+import { requesFromStore } from '@/js/Api.js';
 import { CANCELED, DISPATCHED, getButton } from '@/js/OrderStatus';
 import debounce from 'lodash.debounce'
 import Delivery from '@/views/OrderManager/Shipping/Delivery.vue'
@@ -167,6 +167,7 @@ export default {
       .listen('.App\\Events\\OrderCreated', (event) => {
         this.load()
         this.$toast.add({ severity: 'info', summary: 'Info', detail: 'Novo Pedido', life: 3000 });
+        this.playSound()
       })
 
     this.load()
@@ -235,6 +236,10 @@ export default {
 
       const minutes = Math.floor(ordered_since / 60)
       return `${minutes} minutos atrás`
+    },
+    playSound() {
+      const audio = new Audio('/notification.mp3');
+      audio.play()
     },
     doSearch: debounce(function() { this.load() }, 500)
   }

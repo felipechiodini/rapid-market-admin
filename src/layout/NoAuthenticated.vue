@@ -13,19 +13,16 @@
     </button>
     <drop-down-profile v-model="dropdownOpened"></drop-down-profile>
   </div>
-  <side-bar />
   <router-view style="flex-grow: 1; padding-top: 90px; margin-left: 50px; margin-bottom: 3rem; " />
 </template>
 
 <script>
-import SideBar from '../components/SidebarPlugin/SideBar.vue';
 import DropDownProfile from '../components/DropDownProfile.vue';
 import { mapState } from 'pinia';
 import { useUserStore } from '@/stores/user'
 
 export default {
   components: {
-    SideBar,
     DropDownProfile
   },
   data: () => {

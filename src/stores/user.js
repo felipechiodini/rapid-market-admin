@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import Router from '@/router'
-import Api from '@/js/api'
+import { request } from '@/js/Api.js'
 
 export const useUserStore = defineStore('user', {
   state: () => {
@@ -48,7 +48,7 @@ export const useUserStore = defineStore('user', {
       this.menus = menus
     },
     logout() {
-      Api.post('auth/logout').then(() => {
+      request().post('auth/logout').then(() => {
         this.token = null
         this.user = null
         Router.push({ name: 'auth.login' })

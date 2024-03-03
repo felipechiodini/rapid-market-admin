@@ -22,7 +22,7 @@
 <script>
 import BaseStore from '@/components/BaseStore.vue'
 import { vMaska } from "maska"
-import { requesFromStore } from '@/js/apiStore.js'
+import { requesFromStore } from '@/js/Api.js'
 
 export default {
   directives: { maska: vMaska },

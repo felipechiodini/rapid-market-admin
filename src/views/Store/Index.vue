@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import Api from '@/js/api';
+import { request } from '@/js/Api.js';
 import BaseButton from './BaseButton.vue';
 
 export default {
@@ -34,7 +34,7 @@ export default {
     }
   },
   mounted() {
-    Api.get('stores').then(({ data }) => {
+    request().get('stores').then(({ data }) => {
       this.stores = data.stores
     })
   }

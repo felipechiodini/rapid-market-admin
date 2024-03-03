@@ -1,6 +1,6 @@
 <template>
   <div>
-    <base-index title="Horários">
+    <BaseIndex title="Horários">
       <div class="row mt-4">
         <div class="mb-3" v-for="(weekDay, key) in weekDays" :key="key">
           <h6>{{ weekDay.label }}</h6>
@@ -20,7 +20,7 @@
           </div>
         </div>
       </div>
-    </base-index>
+    </BaseIndex>
   </div>
 </template>
 

@@ -37,7 +37,7 @@
 
 <script>
 import BaseStore from '@/components/BaseStore.vue';
-import { requesFromStore } from '@/js/apiStore';
+import { requesFromStore } from '@/js/Api.js';
 
 export default {
   components: {

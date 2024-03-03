@@ -9,7 +9,7 @@
 <script>
 import BaseIndex from '@/components/BaseIndex.vue';
 import Loading from '@/components/Loading.vue';
-import { requesFromStore } from '@/js/apiStore';
+import { requesFromStore } from '@/js/Api.js';
 import Chart from 'chart.js/auto'
 
 export default {
