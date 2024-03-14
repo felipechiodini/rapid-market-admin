@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import { request } from 'api'
+import { request } from '@/js/Api'
 
   export default {
     data: () => {

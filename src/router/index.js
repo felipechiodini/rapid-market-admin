@@ -64,7 +64,7 @@ const router = createRouter({
             {
               path: '/minha-conta/usuarios',
               name: 'profile.users',
-              component: () => import('@/views/Profile/Subscription.vue')
+              component: () => import('@/views/Profile/Users.vue')
             },
             {
               path: '/minha-conta/permissoes',

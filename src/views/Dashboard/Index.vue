@@ -34,8 +34,6 @@ export default {
           this.dashboard = data.dashboard
         })
     },
-
-
     loadChart(){
       const ctx = document.getElementById('myChart');
 

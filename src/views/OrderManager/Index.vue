@@ -1,6 +1,6 @@
 <template>
   <div>
-    <base-index title="Gestor de Pedidos">
+    <BaseIndex title="Gestor de Pedidos">
     <template #buttons>
       <button class="btn btn-sm btn-primary">
         Pausa de Emergência
@@ -104,8 +104,9 @@
         </div>
       </div>
     </div>
-    </base-index>
+    </BaseIndex>
   </div>
+  <EmergencyStop />
 </template>
 
 <script>
@@ -116,13 +117,15 @@ import { CANCELED, DISPATCHED, getButton } from '@/js/OrderStatus';
 import debounce from 'lodash.debounce'
 import Delivery from '@/views/OrderManager/Shipping/Delivery.vue'
 import OnSite from '@/views/OrderManager/Shipping/OnSite.vue'
+import EmergencyStop from './EmergencyStop.vue';
 
 export default {
   components: {
     BaseIndex,
     Loading,
     Delivery,
-    OnSite
+    OnSite,
+    EmergencyStop
   },
   data: () => {
     return {

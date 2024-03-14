@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex">
+  <div class="d-flex flex-grow-1">
     <div class="d-flex flex-column border-end">
       <ul>
         <li class="aaaaaaaaaaa">
@@ -34,7 +34,7 @@
         </li>
       </ul>
     </div>
-    <RouterView />
+    <RouterView class="flex-grow-1 overflow-auto" />
   </div>
 </template>
 

@@ -1,7 +1,9 @@
 <template>
-  <BaseHeader />
+  <div class="d-flex flex-column vh-100">
+    <BaseHeader />
+    <RouterView class="flex-grow-1 overflow-auto" />
+  </div>
   <NotificationsBar />
-  <RouterView />
 </template>
 
 <script>

@@ -49,11 +49,8 @@ export default {
     background-color: #fff;
     box-shadow: 0 0 3px #e3e3e3;
     border-bottom: 1px solid #eaeaea;
-    top: 0;
-    left: 0;
-    height: 8vh;
     width: 100%;
-    z-index: 3;
+    padding: 10px 0;
   }
 
   header button {
