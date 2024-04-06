@@ -13,7 +13,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 // import AddressRouters from './modules/Address.js'
 // import PaymentRouters from './modules/Payment.js'
 // import DeliveryRouters from './modules/Delivery.js'
-import { useUserStore } from '@/stores/user'
+// import { useUserStore } from '@/stores/user'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -124,18 +124,18 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth) {
-    const user = useUserStore()
+// router.beforeEach((to, from, next) => {
+//   if (to.meta.requiresAuth) {
+//     const user = useUserStore()
     
-    if (user.token !== null) {
-      next()
-    } else {
-      next('/login')
-    }
-  } else {
-    next()
-  }
-})
+//     if (user.token !== null) {
+//       next()
+//     } else {
+//       next('/login')
+//     }
+//   } else {
+//     next()
+//   }
+// })
 
 export default router
