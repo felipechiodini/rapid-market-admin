@@ -5,7 +5,7 @@ RUN npm install
 COPY . /app
 RUN npm run build
 
-FROM nginx:stable-alpine3.17-slim as production
-COPY --from=build /app/dist /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# FROM nginx:stable-alpine3.17-slim as production
+# COPY --from=build /app/dist /usr/share/nginx/html
+# EXPOSE 80
+# CMD ["nginx", "-g", "daemon off;"]
