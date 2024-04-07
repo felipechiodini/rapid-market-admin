@@ -18,34 +18,34 @@
 <script>
 import { request } from '@/js/api.js'
 
-  export default {
-    data: () => {
-      return {
-        password: null,
-        invalidToken: false,
-        loading: true,
-        loadingPassword: false,
-        errorMessage: null
-      }
-    },
-    methods: {
-      redefinir() {
-        this.loadingPassword = true
-        request().post('auth/change-password', {
-          password: this.password,
-          token: this.$route.params.token
-        }).then(({
-          data
-        }) => {
-          this.$bvToast.toast(data.message, {
-            title: 'Sucesso',
-            variant: 'success'
-          })
-          this.$router.push('/login')
-        }).finally(() => {
-          this.loadingPassword = false
+export default {
+  data: () => {
+    return {
+      password: null,
+      invalidToken: false,
+      loading: true,
+      loadingPassword: false,
+      errorMessage: null
+    }
+  },
+  methods: {
+    redefinir() {
+      this.loadingPassword = true
+      request().post('auth/change-password', {
+        password: this.password,
+        token: this.$route.params.token
+      }).then(({
+        data
+      }) => {
+        this.$bvToast.toast(data.message, {
+          title: 'Sucesso',
+          variant: 'success'
         })
-      }
+        this.$router.push('/login')
+      }).finally(() => {
+        this.loadingPassword = false
+      })
     }
   }
+}
 </script>

@@ -16,8 +16,8 @@
           <SubmitButton class="btn btn-primary" type="submit" :loading="submiting">
             Entrar
           </SubmitButton>
-          <div v-bind="errors.has('error')">
-            {{ errors.get('error') }}
+          <div v-bind="errors.has('message')">
+            {{ errors.get('message') }}
           </div>
         </form>
       </div>
