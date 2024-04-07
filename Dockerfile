@@ -1,9 +1,8 @@
 FROM node:18-alpine as build
-RUN mkdir /app
 WORKDIR /app
 COPY package*json .
 RUN npm install
-COPY . /app
+COPY . .
 RUN npm run build
 
 FROM nginx:stable-alpine3.17-slim as production

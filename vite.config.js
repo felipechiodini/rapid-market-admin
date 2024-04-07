@@ -7,9 +7,10 @@ export default defineConfig({
     vue()
   ],
   resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('src', import.meta.url))
-    }
+    alias: 
+      [
+        { find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
+      ]
   },
   server: {
     port: 8081
