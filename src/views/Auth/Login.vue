@@ -21,13 +21,13 @@
           </div>
         </form>
       </div>
-      <div class="rounded-4 mt-5 d-flex align-items-center">
+      <div class="d-flex align-items-end mt-5 gap-2">
         <span style="font-size: .9rem;">
           Ainda não administra seu delivery com a Rapideats?
         </span>
-        <button class="btn btn-transparent start-now">
+        <a href="https://rapideats.com.br/teste-gratis" target="_blanck" class="align-self-start">
           Começar agora
-        </button>
+        </a>
       </div>
     </div>
   </TemplateLogin>
