@@ -112,9 +112,9 @@ const router = createRouter({
       component: () => import('@/views/Auth/RedefinirSenha.vue')
     },
     {
-      path: '/esqueci-minha-senha',
-      name: 'auth.forget-password',
-      component: () => import('@/views/Auth/ForgetPassword.vue')
+      path: '/recuperar-senha',
+      name: 'auth.password-recovery',
+      component: () => import('@/views/Auth/PasswordRecovery.vue')
     },
     {
       path: "/:catchAll(.*)",

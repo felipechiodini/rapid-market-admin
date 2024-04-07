@@ -6,7 +6,7 @@
 export default {
   name: 'loading',
   props: {
-    size: {
+    size: { 
       type: String,
       default: '48px'
     }
@@ -15,49 +15,24 @@ export default {
 </script>
 
 <style scoped>
+
   .loader {
-    width: v-bind(size);
-    height: v-bind(size);
+    width: 20px;
+    height: 20px;
+    border: 3px solid #FFF;
+    border-bottom-color: transparent;
     border-radius: 50%;
-    position: relative;
-    animation: rotate 1s linear infinite
-  }
-
-  .loader::before {
-    content: "";
+    display: inline-block;
     box-sizing: border-box;
-    position: absolute;
-    inset: 0px;
-    border-radius: 50%;
-    border: 5px solid var(--primary);
-    animation: prixClipFix 2s linear infinite;
+    animation: rotation 1s linear infinite;
   }
 
-  @keyframes rotate {
-    100% {
-      transform: rotate(360deg)
-    }
-  }
-
-  @keyframes prixClipFix {
+  @keyframes rotation {
     0% {
-      clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0)
+      transform: rotate(0deg);
     }
-
-    25% {
-      clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0)
-    }
-
-    50% {
-      clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%)
-    }
-
-    75% {
-      clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%)
-    }
-
     100% {
-      clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0)
+      transform: rotate(360deg);
     }
-  }
+  } 
 </style>

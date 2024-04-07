@@ -1,7 +1,7 @@
 <template>
-  <button class="btn btn-primary" :disabled="loading === true" v-bind:type="type">
-    <slot v-if="loading === false" />
-    <loading v-else />
+  <button :disabled="isLoading">
+    <slot v-if="isLoading === false" />
+    <Loading class="align-middle" v-else />
   </button>
 </template>
 
@@ -13,14 +13,15 @@ export default {
   components: {
     Loading
   },
+  computed: {
+    isLoading() {
+      return this.loading === true
+    }
+  },
   props: {
     loading: {
       type: Boolean,
       default: false
-    },
-    type: {
-      type: String,
-      default: null
     }
   }
 }
