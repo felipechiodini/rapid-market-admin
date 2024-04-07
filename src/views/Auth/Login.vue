@@ -1,19 +1,19 @@
 <template>
-  <div style="height: 100vh;">
+  <div class="vh-100">
     <div class="d-flex h-100">
-      <img src="/owner.png" class="shadow-lg rounded-end-4" alt="owner rapideats sistem" style="height: 100%; width: 50%; object-fit: cover;">
+      <img src="/owner.png" class="shadow-lg rounded-end-4 w-50 h-100 object-fit-cover" alt="owner rapideats sistem">
       <div class="d-flex flex-column justify-content-center align-items-center h-100 w-50">
-        <div class="w-75 ">
-          <h5>Rapid Eats</h5>
-          <h3>Entrar</h3>
+        <div class="w-75">
+          <h5>Rapideats</h5>
+          <h1>Login</h1>
           <p>Acesse sua conta para gerenciar sua loja.</p>
           <form class="d-flex flex-column" @submit.prevent="onSubmit()">
             <input required class="form-control" placeholder="Email" type="email" v-model="form.email" />
             <input required class="form-control my-2" placeholder="Senha" type="password" v-model="form.password" />
             <RouterLink class="mt-3" :to="{ name: 'auth.forget-password' }">
-              Esqueci minha senha.
+              Esqueci minha senha
             </RouterLink>
-            <BaseButton style="padding: 1rem; border-radius: 50px; width: 250px; margin-top: 1rem;" type="submit" :loading="submiting">
+            <BaseButton class="login-button" type="submit" :loading="submiting">
               Entrar
             </BaseButton>
             <div v-bind="errors.has('error')">
@@ -66,3 +66,21 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+input {
+  height: 50px;
+  padding: 1rem;
+}
+
+.login-button {
+  padding: 1rem;
+  border-radius: 50px;
+  width: 250px;
+  margin-top: 1rem;
+  font-size: 1.2rem;
+}
+
+
+</style>
