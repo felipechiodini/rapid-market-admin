@@ -8,7 +8,7 @@
 
 <script>
 import BaseStore from '@/components/BaseStore.vue'
-import { requesFromStore } from '@/js/Api.js';
+import { requesFromStore } from '@/js/api.js';
 
 export default {
   components: {

@@ -23,7 +23,7 @@
 
 <script>
 import BaseIndex from '@/components/BaseIndex.vue'
-import { request } from '@/js/Api.js'
+import { request } from '@/js/api.js'
 
 export default {
   components: {

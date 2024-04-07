@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { request } from '@/js/Api.js';
+import { request } from '@/js/api.js';
 import BaseButton from './BaseButton.vue';
 
 export default {

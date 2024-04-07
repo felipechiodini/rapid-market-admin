@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { requesFromStore } from '@/js/Api.js'
+import { requesFromStore } from '@/js/api.js'
 export default {
   props: {
     request: {

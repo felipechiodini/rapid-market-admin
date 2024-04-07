@@ -112,7 +112,7 @@
 <script>
 import BaseIndex from '@/components/BaseIndex.vue'
 import Loading from '@/components/Loading.vue';
-import { requesFromStore } from '@/js/Api.js';
+import { requesFromStore } from '@/js/api.js';
 import { CANCELED, DISPATCHED, getButton } from '@/js/OrderStatus';
 import debounce from 'lodash.debounce'
 import Delivery from '@/views/OrderManager/Shipping/Delivery.vue'

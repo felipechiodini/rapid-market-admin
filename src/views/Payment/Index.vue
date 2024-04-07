@@ -29,7 +29,7 @@
 <script>
 import BaseIndex from '@/components/BaseIndex.vue'
 import BaseTable from '@/components/BaseTable.vue'
-import { requesFromStore } from '@/js/Api.js'
+import { requesFromStore } from '@/js/api.js'
 
 export default {
   components: {

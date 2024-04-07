@@ -1,19 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// import UserRouters from './modules/User.js'
-// import CategoryRouters from './modules/Category.js'
-// import CardRouters from './modules/Card.js'
-// import WaiterRouters from './modules/Waiter.js'
-// import BannerRouters from './modules/Banner.js'
-// import ComboRouters from './modules/Combo.js'
-// import ProductRouters from './modules/Product.js'
-// import GeneralRouters from './modules/General.js'
-// import CustomerRouters from './modules/Customer.js'
-// import ScheduleRouters from './modules/Schedule.js'
-// import OrderRouters from './modules/Order.js'
-// import AddressRouters from './modules/Address.js'
-// import PaymentRouters from './modules/Payment.js'
-// import DeliveryRouters from './modules/Delivery.js'
-// import { useUserStore } from '@/stores/user'
+import UserRouters from './modules/user.js'
+import CategoryRouters from './modules/category.js'
+import CardRouters from './modules/card.js'
+import WaiterRouters from './modules/waiter.js'
+import BannerRouters from './modules/banner.js'
+import ComboRouters from './modules/combo.js'
+import ProductRouters from './modules/product.js'
+import GeneralRouters from './modules/general.js'
+import CustomerRouters from './modules/customer.js'
+import ScheduleRouters from './modules/Schedule.js'
+import OrderRouters from './modules/order.js'
+import AddressRouters from './modules/Address.js'
+import PaymentRouters from './modules/Payment.js'
+import DeliveryRouters from './modules/Delivery.js'
+import { useUserStore } from '@/stores/user'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -83,20 +83,20 @@ const router = createRouter({
           name: 'store.index',
           component: () => import('@/layout/Store.vue'),
           children: [
-            // ...GeneralRouters,
-            // ...CustomerRouters,
-            // ...CategoryRouters,
-            // ...UserRouters,
-            // ...CardRouters,
-            // ...WaiterRouters,
-            // ...BannerRouters,
-            // ...ProductRouters,
-            // ...ComboRouters,
-            // ...ScheduleRouters,
-            // ...OrderRouters,
-            // ...AddressRouters,
-            // ...PaymentRouters,
-            // ...DeliveryRouters
+            ...GeneralRouters,
+            ...CustomerRouters,
+            ...CategoryRouters,
+            ...UserRouters,
+            ...CardRouters,
+            ...WaiterRouters,
+            ...BannerRouters,
+            ...ProductRouters,
+            ...ComboRouters,
+            ...ScheduleRouters,
+            ...OrderRouters,
+            ...AddressRouters,
+            ...PaymentRouters,
+            ...DeliveryRouters
           ]
         }
       ]

@@ -1,4 +1,4 @@
-import { requesFromStore } from '@/js/Api.js'
+import { requesFromStore } from '@/js/api.js'
 import { defineStore } from 'pinia'
 
 export const useStore = defineStore('store', {

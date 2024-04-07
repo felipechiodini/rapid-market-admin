@@ -25,7 +25,7 @@
 import BaseButton from '@/components/BaseButton.vue'
 import { mapActions } from 'pinia'
 import { useUserStore } from '@/stores/user.js'
-import { request } from '@/js/Api.js'
+import { request } from '@/js/api.js'
 import useValidationError from '@/js/useValidationErrors.js'
 
 export default {

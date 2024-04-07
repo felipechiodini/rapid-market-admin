@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import Router from '@/router'
-import { request } from '@/js/Api.js'
+import { request } from '@/js/api.js'
 
 export const useUserStore = defineStore('user', {
   state: () => {

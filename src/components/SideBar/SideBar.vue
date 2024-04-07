@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { requesFromStore } from '@/js/Api.js'
+import { requesFromStore } from '@/js/api.js'
 import Loading from '../Loading.vue' 
 import StoreCard from './StoreCard.vue'
 import { Popover } from 'bootstrap'

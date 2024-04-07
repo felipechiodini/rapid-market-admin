@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { request } from '@/js/Api.js'
+import { request } from '@/js/api.js'
 import BaseButton from '@/components/BaseButton.vue'
 import ButtonGoBack from '@/components/ButtonGoBack.vue'
 
