@@ -106,7 +106,7 @@
     </div>
     </BaseIndex>
   </div>
-  <EmergencyStop />
+  <!-- <EmergencyStop /> -->
 </template>
 
 <script>
@@ -166,13 +166,6 @@ export default {
     }
   },
   mounted() {
-    window.Echo.channel('notifications')
-      .listen('.App\\Events\\OrderCreated', (event) => {
-        this.load()
-        this.$toast.add({ severity: 'info', summary: 'Info', detail: 'Novo Pedido', life: 3000 });
-        this.playSound()
-      })
-
     this.load()
   },
   methods: {
