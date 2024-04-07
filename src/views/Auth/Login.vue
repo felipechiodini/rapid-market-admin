@@ -71,7 +71,7 @@ export default {
         request().get('auth/me').then(({ data }) => this.setUser(data))
         this.$router.push({ name: 'stores.choose' })
       } catch (error) {
-        this.errors.record(error)
+        // this.errors.record(error)
       }
 
       this.submiting = false
