@@ -2,7 +2,7 @@
   <div class="vh-100">
     <div class="d-flex h-100">
       <img src="/owner.png" class="shadow-lg rounded-end-4 w-50 h-100 object-fit-cover" alt="owner rapideats sistem">
-      <div class="d-flex flex-column justify-content-center align-items-center h-100 w-50">
+      <div class="d-flex flex-column justify-content-center h-100 w-50 mx-5">
         <div class="w-75">
           <h5>Rapideats</h5>
           <h1>Login</h1>
@@ -20,6 +20,14 @@
               {{ errors.get('error') }}
             </div>
           </form>
+        </div>
+        <div class="rounded-4 mt-5 d-flex align-items-center">
+          <span style="font-size: .9rem;">
+            Ainda não administra seu delivery com a Rapideats?
+          </span>
+          <button class="btn btn-outline-danger start-now">
+            Começar agora
+          </button>
         </div>
       </div>
     </div>
@@ -80,6 +88,14 @@ input {
   width: 250px;
   margin-top: 1rem;
   font-size: 1.2rem;
+}
+
+.start-now {
+  border: none;
+  width: 150px;
+  font-size: .9rem;
+  padding: .2rem;
+  border-radius: 10px
 }
 
 
