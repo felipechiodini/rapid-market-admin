@@ -10,15 +10,13 @@
           <BaseInput required id="login-email" type="email" v-model="form.email" />
           <label for="login-password" class="mt-2">Senha</label>
           <BaseInput required id="login-password" type="password" v-model="form.password" />
+          <BaseError class="my-2" :message="errors.message" />
           <RouterLink class="mt-1" :to="{ name: 'auth.password-recovery' }">
             Esqueci minha senha
           </RouterLink>
           <SubmitButton class="btn btn-primary" type="submit" :loading="submiting">
             Entrar
           </SubmitButton>
-          <div v-bind="errors.has('message')">
-            {{ errors.get('message') }}
-          </div>
         </form>
       </div>
       <div class="d-flex align-items-end mt-5 gap-2">
@@ -42,13 +40,15 @@ import { mapActions } from 'pinia'
 import { useUserStore } from '@/stores/user.js'
 import { request } from '@/js/api.js'
 import useValidationError from '@/js/useValidationErrors.js'
+import BaseError from '@/components/BaseError.vue'
 
 export default {
   components: {
     TemplateLogin,
     SubmitButton,
     BaseInput,
-    BaseButton
+    BaseButton,
+    BaseError
   },
   data: () => {
     return {
@@ -71,7 +71,7 @@ export default {
         request().get('auth/me').then(({ data }) => this.setUser(data))
         this.$router.push({ name: 'stores.choose' })
       } catch (error) {
-        // this.errors.record(error)
+        this.errors = error.response.data
       }
 
       this.submiting = false
