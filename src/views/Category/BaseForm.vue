@@ -32,12 +32,9 @@ export default {
       this.requesFromStore(this.$route.params.slug)
         .then()
 
-
-
       this.request()
         .append({teste: 'dwadw'})
         .then(({ data }) => {
-          console.log(data)
         })
     }
   }

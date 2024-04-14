@@ -53,7 +53,6 @@ export default {
   methods: {
     onSubmit() {
       this.request().then(({ data }) => {
-        console.log(data)
       })
     }
   }

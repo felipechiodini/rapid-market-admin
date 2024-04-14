@@ -1,24 +1,19 @@
-import { requesFromStore } from '@/js/api.js'
 import { defineStore } from 'pinia'
 
 export const useStore = defineStore('store', {
   state: () => {
     return {
-      name: null,
-      slug: null,
-      isOpen: null,
+      store: null
+    }
+  },
+  getters: {
+    isCompleted() {
+      return Object.values(this.store.completed_configured).every(i => i.done === true)
     }
   },
   actions: {
-    getStore(slug) {
-      requesFromStore(slug)
-        .then(({ data }) => {
-          this.name = data.name
-          this.slug = data.slug
-          this.isOpen = data.isOpen
-        }).catch((err) => {
-          
-        });
+    setStore(store) {
+      this.store = store
     }
   }
 })

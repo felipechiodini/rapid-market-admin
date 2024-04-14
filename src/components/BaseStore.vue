@@ -46,7 +46,6 @@ export default {
       this.request().then(({ data }) => {
         this.onCreated(data)
       }).catch((err) => {
-        console.log(err)
       }).finally(() => {
         this.submiting = false
       })

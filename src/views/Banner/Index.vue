@@ -1,6 +1,6 @@
 <template>
   <div>
-    <base-index title="Banners">
+    <BaseIndex title="Banners">
       <template #buttons>
         <button class="btn btn-sm btn-primary" @click="$router.push({ name: 'banner.store' })">
           Novo Banner
@@ -18,7 +18,7 @@
           </tr>
         </template>
       </base-table>
-    </base-index>
+    </BaseIndex>
   </div>
 </template>
 

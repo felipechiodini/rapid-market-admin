@@ -1,6 +1,6 @@
 <template>
   <div>
-    <base-index title="Produtos">
+    <BaseIndex title="Produtos">
       <template #buttons>
         <button class="btn btn-primary btn-sm" @click="$router.push({ name: 'product.store' })">
           Novo Produto
@@ -29,7 +29,7 @@
           </tr>
         </template>
       </base-table>
-    </base-index>
+    </BaseIndex>
   </div>
 </template>
 

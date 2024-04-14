@@ -23,6 +23,10 @@ export default {
     padding: 1.3rem;
   }
 
+  .doawkfpwakfowpa:hover {
+    background-color: #bbbbbb
+  } 
+
   .wiafjwa {
     display: flex;
     align-items: center;

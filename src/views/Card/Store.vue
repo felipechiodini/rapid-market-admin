@@ -1,6 +1,6 @@
 <template>
   <div>
-    <base-index title="Categorias">
+    <BaseIndex title="Categorias">
       <template #buttons>
         <button class="btn btn-primary">Nova Categoria</button>
       </template>
@@ -17,7 +17,7 @@
           </tr>
         </template>
       </base-table>
-    </base-index>
+    </BaseIndex>
   </div>
 </template>
 

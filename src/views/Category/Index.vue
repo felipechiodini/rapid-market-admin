@@ -1,6 +1,6 @@
 <template>
   <div>
-    <base-index title="Categorias">
+    <BaseIndex title="Categorias">
       <template #buttons>
         <button class="btn btn-primary btn-sm" @click="$router.push({ name: 'category.store' })">
           Nova Categoria
@@ -20,7 +20,7 @@
           </tr>
         </template>
       </base-table>
-    </base-index>
+    </BaseIndex>
   </div>
 </template>
 

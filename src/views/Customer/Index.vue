@@ -1,6 +1,6 @@
 <template>
   <div>
-    <base-index title="Clientes">
+    <BaseIndex title="Clientes">
       <template #buttons>
         <button class="btn btn-primary btn-sm" @click="$router.push({ name: 'customer.store' })">
           Novo Cliente
@@ -26,7 +26,7 @@
           </tr>
         </template>
       </base-table>
-    </base-index>
+    </BaseIndex>
   </div>
 </template>
 

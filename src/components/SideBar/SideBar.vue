@@ -4,7 +4,7 @@
       <button class="btn" @click="toggleCollapsed()">
         <span :class="{ 'fas fa-chevron-left float-end': collapsed === false, 'fas fa-chevron-right': collapsed === true }"></span>
       </button>
-      <StoreCard v-if="collapsed === false" :store="store" />
+      <StoreCard v-if="collapsed === false" />
       <ul class="m-0">
         <li v-for="(menu, key) in sidebar" :key="key">
           <router-link class="rounded mb-3" :class="{ 'selected': menu.name === $route.name }" :to="{ name: menu.name }" v-if="!menu.childrens">
@@ -23,6 +23,8 @@ import { requesFromStore } from '@/js/api.js'
 import Loading from '../Loading.vue' 
 import StoreCard from './StoreCard.vue'
 import { Popover } from 'bootstrap'
+import { mapState } from 'pinia'
+import { useStore } from '@/stores/store'
 
 export default {
   components: {
@@ -32,10 +34,12 @@ export default {
   data: () => {
     return {
       collapsed: false,
-      store: null,
       sidebar: null,
       loading: true
     }
+  },
+  computed: {
+    ...mapState(useStore, ['store'])
   },
   mounted() {
     this.collapsed = localStorage.getItem('menu_collapse') === 'true' ?? false
@@ -44,21 +48,11 @@ export default {
   methods: {
     load() {
       this.loading = true
-
-      requesFromStore()
-        .get('store')
-        .then(({ data }) => {
-          this.store = data.store
-        })
-
       requesFromStore()
         .get('sidebar')
-        .then(({ data }) => {
-          this.sidebar = data.sidebar
-        })
+        .then(({ data }) => this.sidebar = data.sidebar)
+        .finally(() => this.loading = false)
       
-      this.loading = false
-
       this.$nextTick(() => {
         const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
         popoverTriggerList.map(popoverTriggerEl => new Popover(popoverTriggerEl, {

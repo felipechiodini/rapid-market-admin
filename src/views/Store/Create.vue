@@ -1,80 +1,34 @@
 <template>
   <div class="container">
-    <div class="">
-      <div class="row">
-        <div class="col-4">
-          <label for="daw">Nome da Loja</label>
-          <input class="form-control" type="text">
-        </div>
-        
-
-      </div>
+    <BaseForm :request="request" class="d-flex flex-column p-4 w-50">
       <div>
-        <h6>Logo</h6>
+        <label for="">Nome da Loja</label>
+        <input class="form-control" required v-model="form.name" type="text">
       </div>
-      
-
-      <div class="border p-3">
-        <h6>Endereço</h6>
-        <div class="d-flex flex-column">
-          <div>
-            <label for="daw">CEP</label>
-            <input class="form-control" v-model="store.address.cep" type="text">
-          </div>
-          <div>
-            <label for="daw">Rua</label>
-            <input class="form-control" v-model="store.address.street" type="text">
-          </div>
-          <div>
-            <label for="daw">Número</label>
-            <input class="form-control" v-model="store.address.number" type="text">
-          </div>
-          <div>
-            <label for="daw">Bairro</label>
-            <input class="form-control" v-model="store.address.neighborhood" type="text">
-          </div>
-          <div>
-            <label for="daw">Cidade</label>
-            <input class="form-control" v-model="store.address.city" type="text">
-          </div>
-          <div>
-            <label for="daw">Complemento</label>
-            <input class="form-control" v-model="store.address.complement" type="text">
-          </div>
-        </div>
-      </div>
-    </div>
+    </BaseForm>
   </div>
 </template>
 
-
 <script>
-  import Steps from 'primevue/steps';
+import { request } from '@/js/api';
+import BaseForm from '@/components/BaseForm.vue';
 
-  export default {
-    components: {
-      Steps
-    },
-    data() {
-      return {
-        store: {
-          address: {
-
-          }
-        },
-        items: [{
-            label: 'Personal Info'
-          },
-          {
-            label: 'Reservation'
-          },
-          {
-            label: 'Review'
-          }
-        ]
+export default {
+  components: {
+    BaseForm
+  },
+  data: () => {
+    return {
+      form: {
+        name: null
       }
     }
-
-
+  },
+  methods: {
+    request() {
+      return request()
+        .post('store', this.form)
+    }
   }
+}
 </script>

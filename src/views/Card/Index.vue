@@ -1,6 +1,6 @@
 <template>
   <div>
-    <base-index title="Comandas">
+    <BaseIndex title="Comandas">
       <template #buttons>
         <button class="btn btn-primary">Nova Comanda</button>
       </template>
@@ -17,7 +17,7 @@
           </tr>
         </template>
       </base-table>
-    </base-index>
+    </BaseIndex>
   </div>
 </template>
 

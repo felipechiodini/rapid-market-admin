@@ -1,5 +1,5 @@
 <template>
-  <base-index title="Endereço da Loja">
+  <BaseIndex title="Endereço da Loja">
     <div class="m-5">
       <div class="d-flex flex-column">
         <span v-for="(item, key) in address" :key="key">
@@ -10,7 +10,7 @@
         </button>
       </div>
     </div>
-  </base-index>
+  </BaseIndex>
 </template>
 
 <script>

@@ -14,13 +14,12 @@
 </template>
 
 <script>
+import { useStore } from '@/stores/store';
+import { mapState } from 'pinia';
+
 export default {
-  props: {
-    store: {
-      
-    }
-  },
   computed: {
+    ...mapState(useStore, ['store']),
     translate() {
       const values = {
         false: {

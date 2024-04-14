@@ -1,8 +1,8 @@
 <template>
   <div>
-    <base-index title="Configurações">
+    <BaseIndex title="Configurações">
 
-    </base-index>
+    </BaseIndex>
   </div>
 </template>
 
