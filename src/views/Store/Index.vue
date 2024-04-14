@@ -9,12 +9,17 @@
           </button>
         </div>
       </div>
-      <div class="dwaiopfjiowajfwai rounded-top">
-        <h6>Minhas Lojas</h6>
-      </div>
-      <StoreButton v-for="(store, key) in stores" :key="key" @click="$router.push({ name: 'dashboard.index', params: { slug: store.slug } })">
-        {{ store.name }}
-      </StoreButton>
+      <template v-if="hasStores">
+        <div class="dwaiopfjiowajfwai rounded-top">
+          <h6>Minhas Lojas</h6>
+        </div>
+        <StoreButton v-for="(store, key) in stores" :key="key" @click="$router.push({ name: 'dashboard.index', params: { slug: store.slug } })">
+          {{ store.name }}
+        </StoreButton>
+      </template>
+      <template v-else>
+        <h6>Cadastre sua primeira loja</h6>
+      </template>
     </div>
   </div>
 </template>
@@ -29,7 +34,12 @@ export default {
   },
   data: () => {
     return {
-      stores: null
+      stores: []
+    }
+  },
+  computed: {
+    hasStores() {
+      return this.stores.length > 0
     }
   },
   mounted() {
@@ -44,10 +54,9 @@ export default {
 
   .opdakwofwo {
     display: flex;
-    justify-content: center;
+    margin-top: 4rem;
     flex-direction: column;
     align-items: center;
-    height: 80vh;
   }
 
   .dwaiopfjiowajfwai {
