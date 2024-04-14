@@ -1,8 +1,8 @@
 <template>
   <TemplateLogin>
-    <div class="d-flex flex-column justify-content-center h-100 w-50 mx-5">
-      <div class="w-75">
-        <h5>Rapideats</h5>
+    <div class="d-flex flex-column justify-content-center h-100 w-100 mx-4">
+      <div class="w-100">
+        <img width="150px" src="/logo.png">
         <h1>Login</h1>
         <p>Acesse sua conta para gerenciar sua loja.</p>
         <form class="d-flex flex-column" @submit.prevent="onSubmit()">
@@ -14,12 +14,12 @@
           <RouterLink class="mt-1" :to="{ name: 'auth.password-recovery' }">
             Esqueci minha senha
           </RouterLink>
-          <SubmitButton class="btn btn-primary" type="submit" :loading="submiting">
+          <SubmitButton class="btn btn-primary w-100" type="submit" :loading="submiting">
             Entrar
           </SubmitButton>
         </form>
       </div>
-      <div class="d-flex align-items-end mt-5 gap-2">
+      <div class="d-flex flex-wrap align-items-end mt-5 gap-2">
         <span style="font-size: .9rem;">
           Ainda não administra seu delivery com a Rapideats?
         </span>
