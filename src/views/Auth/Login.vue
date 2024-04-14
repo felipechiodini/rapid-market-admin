@@ -23,7 +23,7 @@
         <span style="font-size: .9rem;">
           Ainda não administra seu delivery com a Rapideats?
         </span>
-        <a href="https://rapideats.com.br/teste-gratis" target="_blanck" class="align-self-start">
+        <a :href="link" target="_blanck" class="align-self-start">
           Começar agora
         </a>
       </div>
@@ -41,6 +41,7 @@ import { useUserStore } from '@/stores/user.js'
 import { request } from '@/js/api.js'
 import useValidationError from '@/js/useValidationErrors.js'
 import BaseError from '@/components/BaseError.vue'
+import { freeTest } from '@/js/Links'
 
 export default {
   components: {
@@ -57,7 +58,8 @@ export default {
         password: null
       },
       errors: new useValidationError(),
-      submiting: false
+      submiting: false,
+      link: freeTest()
     }
   },
   methods: {
