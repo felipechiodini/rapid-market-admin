@@ -1,25 +1,16 @@
 <template>
-  <span v-if="message !== null">
+  <div class="invalid-feedback">
     {{ message }}
-  </span>
+  </div>
 </template>
 
 <script>
 export default {
   props: {
     message: {
-      default: null
+      required: true
     }
   }
 }
 
 </script>
-
-<style scoped>
-
-span {
-  font-size: .8rem;
-  color: var(--danger)
-}
-
-</style>

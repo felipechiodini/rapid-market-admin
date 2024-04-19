@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <base-store title="Novo Produto" :request="submit">
+  <BaseIndex title="Novo Produto">
+    <BaseForm :request="request">
       <div class="row">
         <div class="col-6">
           <label for="product-name">Nome</label>
@@ -9,18 +9,18 @@
         <div class="col-6">
           <label for="product-category">Categoria</label>
           <select class="form-select" id="product-category" v-model="form.category_id">
-            <option :value="category.id" v-for="(category, key) in categories">
+            <option :value="category.id" v-for="(category, key) in categories" :key="key">
               {{ category.name }}
             </option>
           </select>
         </div>
         <div class="col-6">
           <label for="product-price-from">Preço de</label>
-          <input class="form-control" v-money="config" id="product-price-from" v-model="form.price.from" />
+          <input class="form-control" id="product-price-from" v-model="form.price.from" />
         </div>
         <div class="col-6">
           <label for="product-price-to">Preço por</label>
-          <input class="form-control" v-money="config" id="product-price-to" v-model="form.price.to" />
+          <input class="form-control" id="product-price-to" v-model="form.price.to" />
         </div>
         <div class="col-12">
           <label for="product-description">Descrição</label>
@@ -31,18 +31,20 @@
           <photo-uploader :multiple="true" v-model="form.photos" />
         </div>
       </div>
-    </base-store>
-  </div>
+    </BaseForm>
+  </BaseIndex>
 </template>
 
 <script>
-import BaseStore from '@/components/BaseStore.vue';
-import { requesFromStore } from '@/js/api.js';
-import PhotoUploader from '@/components/PhotoUploader.vue';
+import BaseIndex from '@/components/BaseIndex.vue'
+import BaseForm from '@/components/BaseForm.vue'
+import PhotoUploader from '@/components/PhotoUploader.vue'
+import { requesFromStore } from '@/js/api.js'
 
 export default {
   components: {
-    BaseStore,
+    BaseIndex,
+    BaseForm,
     PhotoUploader
   },
   data: () => {
@@ -72,20 +74,14 @@ export default {
     this.fetchCategories()
   },
   methods: {
-    submit() {
-      return requesFromStore(this.$route.params.slug)
+    request() {
+      return requesFromStore()
         .postForm('product', this.form)
     },
     fetchCategories() {
-      requesFromStore(this.$route.params.slug)
-        .get('category/all').then(({ data }) => {
-          this.categories = data.categories
-        }).catch(() => {
-
-        })
-        .finally(() => {
-
-        })
+      requesFromStore()
+        .get('category/all')
+        .then(({ data }) => this.categories = data.categories)
     }
   }
 }

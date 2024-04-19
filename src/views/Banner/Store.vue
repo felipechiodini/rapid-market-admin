@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <base-store title="Novo Banner" :request="request">
+  <BaseIndex title="Novo Banner">
+    <BaseForm :request="request">
       <div class="row">
         <div class="col-12">
           <label for="">Nome</label>
@@ -11,18 +11,20 @@
           <PhotoUploader v-model="form.image" />
         </div>
       </div>
-    </base-store>
-  </div>
+    </BaseForm>
+  </BaseIndex>
 </template>
 
 <script>
-import { requesFromStore } from '@/js/api.js';
-import PhotoUploader from '@/components/PhotoUploader.vue';
-import BaseStore from '@/components/BaseStore.vue';
+import BaseIndex from '@/components/BaseIndex.vue'
+import BaseForm from '@/components/BaseForm.vue'
+import { requesFromStore } from '@/js/api.js'
+import PhotoUploader from '@/components/PhotoUploader.vue'
 
 export default {
   components: {
-    BaseStore,
+    BaseIndex,
+    BaseForm,
     PhotoUploader
   },
   data: () => {
@@ -35,7 +37,7 @@ export default {
   },
   methods: {
     request() {
-      return requesFromStore(this.$route.params.slug)
+      return requesFromStore()
         .postForm('banner', this.form)
     }
   }

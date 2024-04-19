@@ -7,9 +7,10 @@
       <form class="d-flex flex-column" @submit.prevent="onSubmit()">
         <label for="login-email">Email</label>
         <BaseInput required id="login-email" type="email" v-model="form.email" />
+        <BaseError message="Informe o email" />
         <label for="login-password" class="mt-2">Senha</label>
         <BaseInput required id="login-password" type="password" v-model="form.password" />
-        <BaseError class="my-2" :message="errors.message" />
+        <BaseError message="Informe a senha" />
         <RouterLink class="mt-1" :to="{ name: 'auth.password-recovery' }">
           Esqueci minha senha
         </RouterLink>
@@ -37,7 +38,6 @@ import BaseButton from '@/components/BaseButton.vue'
 import { mapActions } from 'pinia'
 import { useUserStore } from '@/stores/user.js'
 import { request } from '@/js/api.js'
-import useValidationError from '@/js/useValidationErrors.js'
 import BaseError from '@/components/BaseError.vue'
 import { freeTest } from '@/js/Links'
 
@@ -55,7 +55,7 @@ export default {
         email: null,
         password: null
       },
-      errors: new useValidationError(),
+      error: null,
       submiting: false,
       link: freeTest()
     }
@@ -71,7 +71,7 @@ export default {
         request().get('auth/me').then(({ data }) => this.setUser(data))
         this.$router.push({ name: 'stores.choose' })
       } catch (error) {
-        this.errors = error.response.data
+        this.error = error.response.data.message
       }
 
       this.submiting = false

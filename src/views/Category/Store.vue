@@ -1,19 +1,22 @@
 <template>
-  <div>
-    <base-store title="Nova Categoria">
-      <base-form :request="save" />
-    </base-store>
-  </div>
+  <BaseIndex title="Nova Categoria">
+    <BaseForm class="row" :request="request">
+      <div class="col-3">
+        <label for="category-name">Nome</label>
+        <input class="form-control" required v-model="form.name" id="category-name" type="text">
+      </div>
+    </BaseForm>
+  </BaseIndex>
 </template>
 
 <script>
-import BaseStore from '@/components/BaseStore.vue'
-import BaseForm from './BaseForm.vue';
-import { requesFromStore } from '@/js/api.js';
+import BaseIndex from '@/components/BaseIndex.vue'
+import BaseForm from '@/components/BaseForm.vue'
+import { requesFromStore } from '@/js/api.js'
 
 export default {
   components: {
-    BaseStore,
+    BaseIndex,
     BaseForm
   },
   data: () => {
@@ -24,9 +27,9 @@ export default {
     }
   },
   methods: {
-    save() {
-      return requesFromStore(this.$route.params.slug)
-        .post('category')
+    request() {
+      return requesFromStore()
+        .post('category', this.form)
     }
   }
 

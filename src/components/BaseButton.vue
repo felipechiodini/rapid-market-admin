@@ -1,22 +1,16 @@
 <template>
-  <button :disabled="isLoading">
-    <slot v-if="isLoading === false" />
-    <Loading class="align-middle" v-else />
+  <button :disabled="loading === true">
+    <Loading v-if="loading === true" class="spinner-border-sm text-light" />
+    <slot v-else />
   </button>
 </template>
 
 <script>
-import Loading from './Loading.vue';
+import Loading from '@/components/Loading.vue'
 
 export default {
-  name: 'base-button',
   components: {
     Loading
-  },
-  computed: {
-    isLoading() {
-      return this.loading === true
-    }
   },
   props: {
     loading: {

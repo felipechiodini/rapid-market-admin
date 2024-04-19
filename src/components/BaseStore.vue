@@ -1,21 +1,18 @@
 <template>
-  <div class="container">
-    <h3 class="m-0 mb-3 fw-bolder">{{ title }}</h3>
-    <form @submit.prevent="onSubmit()">
-      <div class="bg-light rounded border p-3">
-        <slot />
-      </div>
-      <div class="mt-4">
-        <button type="submit" class="btn btn-primary me-2">
-          <loading v-if="submiting === true"></loading>  
-          <span v-else>Salvar</span>  
-        </button>
-        <button class="btn btn-dark" @click="$router.back()">
-          Cancelar
-        </button>
-      </div>
-    </form>
-  </div>
+  <form @submit.prevent="onSubmit()">
+    <div class="bg-light rounded border p-3">
+      <slot />
+    </div>
+    <div class="mt-4">
+      <button type="submit" class="btn btn-primary me-2">
+        <loading v-if="submiting === true"></loading>  
+        <span v-else>Salvar</span>  
+      </button>
+      <button class="btn btn-dark" @click="$router.back()">
+        Cancelar
+      </button>
+    </div>
+  </form>
 </template>
 
 <script>
