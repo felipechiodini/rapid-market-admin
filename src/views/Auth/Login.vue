@@ -68,7 +68,10 @@ export default {
       try {
         const { data } = await request().post('auth/login', this.form)
         this.setToken(data.access_token)
-        request().get('auth/me').then(({ data }) => this.setUser(data))
+
+        const response = await request().get('auth/me')
+        this.setUser(response.data)
+
         this.$router.push({ name: 'stores.choose' })
       } catch (error) {
         this.error = error.response.data.message
