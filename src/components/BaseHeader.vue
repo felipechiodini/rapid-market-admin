@@ -6,6 +6,7 @@
     <div class="d-flex ms-auto">
       <button class="icon-bell text-muted me-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
         <i class="fa-regular fa-bell"></i>
+        <span>{{ notificationsNotReadCount }}</span>
       </button>
       <button class="falçwojfawjifw" @click="$router.push({ name: 'profile.index' })">
         <span>{{ initialLetters }}</span>
@@ -17,10 +18,12 @@
 <script>
 import { mapState } from 'pinia'
 import { useUserStore } from '@/stores/user'
+import { useNotificationStore } from '@/stores/notification';
 
 export default {
   computed: {
     ...mapState(useUserStore, ['user']),
+    ...mapState(useNotificationStore, ['notificationsNotReadCount']),
     initialLetters() {
       try {
         const firstLetters = this.user?.name.split(' ').map(i => i.charAt(0))
