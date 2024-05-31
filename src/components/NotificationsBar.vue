@@ -32,6 +32,8 @@ export default {
 
     window.Echo.private(`notifications.${this.user.id}`)
       .listen('.notification', (e) => {
+        const audio = new Audio('/toastnotification.mp3')
+        audio.play()
         this.$toast.add({ summary: e.userNotification.title, detail: e.userNotification.content, life: 3000 });
       })
   },
