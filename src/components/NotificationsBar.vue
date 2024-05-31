@@ -17,8 +17,9 @@
 </template>
 
 <script>
-import { useNotificationStore } from '@/stores/notification';
-import { mapActions, mapState } from 'pinia';
+import { useNotificationStore } from '@/stores/notification'
+import { mapActions, mapState } from 'pinia'
+import { useUserStore } from '@/stores/user'
 
 export default {
   data: () => {
@@ -28,8 +29,14 @@ export default {
   },
   mounted() {
     this.load()
+
+    window.Echo.private(`notifications.${this.user.id}`)
+      .listen('.notification', (e) => {
+        this.$toast.add({ summary: e.userNotification.title, detail: e.userNotification.content, life: 3000 });
+      })
   },
   computed: {
+    ...mapState(useUserStore, ['user']),
     ...mapState(useNotificationStore, ['page'])
   },
   methods: {

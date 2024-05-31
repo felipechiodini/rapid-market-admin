@@ -129,7 +129,7 @@ export default {
   },
   data: () => {
     return {
-      orders: null,
+      orders: [],
       selectedOrder: null,
       loadingOrder: false,
       filters: {
@@ -167,6 +167,11 @@ export default {
   },
   mounted() {
     this.load()
+
+    window.Echo.private(`stores.${this.$route.params.slug}`)
+      .listen('.App\\Events\\OrderCreated', (order) => {
+        this.pushOrder(order)
+      })
   },
   methods: {
     load() {
@@ -232,6 +237,10 @@ export default {
 
       const minutes = Math.floor(ordered_since / 60)
       return `${minutes} minutos atrás`
+    },
+    pushOrder(order) {
+      this.orders.unshift(order)
+      this.playSound()
     },
     playSound() {
       const audio = new Audio('/notification.mp3');
