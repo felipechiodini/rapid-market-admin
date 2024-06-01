@@ -1,40 +1,48 @@
 <template>
   <div class="opdakwofwo">
-    <div class="waopkfawpkfw rounded">
+    <div class="waopkfawpkfw">
       <div class="d-flex mb-3">
         <div class="ms-auto">
           <button class="btn btn-primary" @click="$router.push({ name: 'stores.create' })">
-            <span class="fas fa-plus"></span>
+            <span class="fas fa-store"></span>
             Nova Loja
           </button>
         </div>
       </div>
-      <template v-if="hasStores">
-        <div class="dwaiopfjiowajfwai rounded-top">
-          <h6>Minhas Lojas</h6>
+      <div v-if="hasStores" class="rounded overflow-hidden" style="width: 500px;">
+        <div class="p-3 bg-primary">
+          <h6 class="m-0 text-white">Minhas Lojas</h6>
         </div>
-        <StoreButton v-for="(store, key) in stores" :key="key" @click="$router.push({ name: 'dashboard.index', params: { slug: store.slug } })">
-          {{ store.name }}
-        </StoreButton>
-      </template>
-      <template v-else>
-        <h6>Cadastre sua primeira loja</h6>
-      </template>
+        <template v-if="loadingStores">
+          <StoreButton v-for="(store, key) in stores" :key="key" @click="goTo(store)">
+            {{ store.name }}
+          </StoreButton>
+        </template>
+        <div class="d-flex justify-content-center mt-5" v-else>
+          <Loading />
+        </div>
+      </div>
+      <div v-else>
+        <h6 class="m-0">Cadastre sua primeira loja</h6>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { request } from '@/js/api.js';
-import StoreButton from './StoreButton.vue';
+import { request } from '@/js/api.js'
+import StoreButton from './StoreButton.vue'
+import Loading from '@/components/Loading.vue'
 
 export default {
   components: {
     StoreButton,
+    Loading
   },
   data: () => {
     return {
-      stores: []
+      stores: [],
+      loadingStores: false
     }
   },
   computed: {
@@ -43,9 +51,19 @@ export default {
     }
   },
   mounted() {
+    this.loadingStores = true
     request()
       .get('stores')
       .then(({ data }) => this.stores = data.stores)
+      .finally(() => this.loadingStores = false)
+  },
+  methods: {
+    goTo(store) {
+      this.$router.push({
+        name: 'dashboard.index',
+        params: { slug: store.slug }
+      })
+    }
   }
 }
 </script>
@@ -54,25 +72,13 @@ export default {
 
   .opdakwofwo {
     display: flex;
-    margin-top: 4rem;
+    margin-top: 2rem;
     flex-direction: column;
     align-items: center;
   }
 
-  .dwaiopfjiowajfwai {
-    height: 50px;
-    background-color: var(--primary);
-    padding: 1rem;
-  }
-  
-  .dwaiopfjiowajfwai h6 {
-    color: #fff;
-  }
-
-
   .waopkfawpkfw {
     margin-top: 1rem;
   }
-
 
 </style>

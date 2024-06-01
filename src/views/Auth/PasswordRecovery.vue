@@ -3,9 +3,10 @@
     <div class="d-flex flex-column justify-content-center h-100 w-50 mx-5">
       <form class="d-flex flex-column" @submit.prevent="onSubmit()">
         <h1>Recuperação de senha</h1>
-        <p>Digite o e-mail da sua loja e receba instruções para recuperar sua senha.</p>
+        <p>Digite seu e-mail e receba instruções para recuperar sua senha.</p>
         <label class="form-control-label" for="email-for-reset">Email</label>
         <BaseInput required type="email" id="email-for-reset" v-model="email" />
+        <Message class="my-2 text-primary" v-if="message">{{ message }}</Message>
         <div class="d-flex gap-2">
           <SubmitButton class="btn btn-primary" type="submit" :loading="submiting">
             Enviar
@@ -26,6 +27,7 @@ import BaseInput from './Components/BaseInput.vue'
 import { request } from '@/js/api.js'
 import BaseButton from '@/components/BaseButton.vue'
 import ButtonGoBack from '@/components/ButtonGoBack.vue'
+import Message from '@/components/Message.vue'
 
 export default {
   components: {
@@ -33,25 +35,23 @@ export default {
     SubmitButton,
     BaseInput,
     BaseButton,
-    ButtonGoBack
+    ButtonGoBack,
+    Message
   },
   data: () => {
     return {
       email: null,
-      submiting: false
+      submiting: false,
+      message: null
     }
   },
   methods: {
-    async onSubmit() {
+    onSubmit() {
       this.submiting = true
-
-      try {
-        const { data } = await request().post('auth/forgot-password', { email: this.email })
-        this.$bvToast.toast(data.message, { title: 'Sucesso', variant: 'success' })
-      } catch (error) {
-      }
-
-      this.submiting = false
+      request()
+        .post('auth/forgot-password', { email: this.email })
+        .then(({ data }) => this.message = data.message)
+        .finally(() => this.submiting = false)
     }
   }
 }

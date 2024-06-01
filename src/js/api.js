@@ -21,6 +21,21 @@ export const request = () => {
     return request
   }, (error) => Promise.reject(error))
 
+  request.interceptors.response.use(function (response) {
+    return response
+  }, function (error) {
+    if (error.response.status === 401) {
+      localStorage.clear()
+      router.push({ name: 'auth.login' })
+    }
+  
+    if (error.response.status === 503) {
+      router.push({ name: 'maintenance' })
+    }
+  
+    return Promise.reject(error)
+  })
+
   return request
 }
 

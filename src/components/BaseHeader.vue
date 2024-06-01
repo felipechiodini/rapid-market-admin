@@ -3,10 +3,10 @@
     <button v-if="showButton" class="btn btn-sm text-primary ms-2" @click="$router.push({ name: 'stores.choose' })">
       <i class="fas fa-chevron-left"></i>
     </button>
-    <div class="d-flex ms-auto">
+    <div class="d-flex gap-2 ms-auto">
       <button class="icon-bell text-muted me-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
         <i class="fa-regular fa-bell"></i>
-        <span>{{ notificationsNotReadCount }}</span>
+        <span class="badge-counter">{{ notificationsNotReadCount }}</span>
       </button>
       <button class="falçwojfawjifw" @click="$router.push({ name: 'profile.index' })">
         <span>{{ initialLetters }}</span>
@@ -62,7 +62,7 @@ export default {
   }
 
   .falçwojfawjifw {
-    margin-right: 1rem;
+    margin-right: .7rem;
     border: none;
     border-radius: 50%;
     height: 35px;
@@ -73,6 +73,18 @@ export default {
 
   .icon-bell {
     font-size: 1.2rem;
+  }
+
+  .badge-counter {
+    border-radius: 5px;
+    background-color: var(--primary);
+    padding: 0 3px;
+    color: #fff;
+    font-weight: 500;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 10px;
+    position: absolute
   }
 
 </style>

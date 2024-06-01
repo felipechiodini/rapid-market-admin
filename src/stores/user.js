@@ -49,8 +49,7 @@ export const useUserStore = defineStore('user', {
     },
     logout() {
       request().post('auth/logout').then(() => {
-        this.token = null
-        this.user = null
+        localStorage.clear()
         Router.push({ name: 'auth.login' })
       })
     }
