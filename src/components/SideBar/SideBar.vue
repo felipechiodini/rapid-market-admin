@@ -1,5 +1,5 @@
 <template>
-  <div class="wraper" :class="{ 'collapsed': collapsed }">
+  <div class="sidebar" :class="{ 'collapsed': collapsed }">
     <template v-if="loading === false && store">
       <StoreCard v-if="collapsed === false" />
       <ul class="m-0">
@@ -71,7 +71,7 @@ export default {
 
 <style scoped>
 
-  .wraper {
+  .sidebar {
     display: flex;
     flex-direction: column;
     z-index: 2;
@@ -79,20 +79,20 @@ export default {
     padding: 1rem;
   }
 
-  .wraper.collapsed {
+  .sidebar.collapsed {
     width: 100px;
   }
 
-  .wraper ul {
+  .sidebar ul {
     overflow: auto;
     padding: 0;
   }
 
-  .wraper ul::-webkit-scrollbar {
+  .sidebar ul::-webkit-scrollbar {
     display: none;
   }
 
-  .wraper i {
+  .sidebar i {
     height: 60px;
     min-width: 70px;
     font-size: 28px;
@@ -100,12 +100,12 @@ export default {
     line-height: 60px;
   }
 
-  .wraper li {
+  .sidebar li {
     position: relative;
     list-style: none;
   }
 
-  .wraper li a {
+  .sidebar li a {
     display: flex;
     height: 100%;
     width: 100%;
@@ -114,16 +114,16 @@ export default {
     color: #434343;
   }
 
-  .wraper li a.selected {
+  .sidebar li a.selected {
     color: var(--primary);
     background-color: rgb(225, 225, 225);
   }
 
-  .wraper li a:hover {
+  .sidebar li a:hover {
     background: #efefef;
   }
 
-  .wraper li i {
+  .sidebar li i {
     height: 50px;
     line-height: 50px;
     font-size: 16px;
