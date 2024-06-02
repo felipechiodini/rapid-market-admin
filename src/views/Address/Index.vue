@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import BaseIndex from '@/components/BaseIndex.vue';
-import { requesFromStore } from '@/js/api.js';
+import BaseIndex from '@/components/BaseIndex.vue'
+import { requesFromStore } from '@/js/api.js'
 
 export default {
   components: {

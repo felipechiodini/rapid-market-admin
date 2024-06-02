@@ -9,7 +9,6 @@
 <script>
 import BaseHeader from '@/components/BaseHeader.vue'
 import NotificationsBar from '@/components/NotificationsBar.vue'
-import { mapState } from 'pinia'
 
 export default {
   components: {

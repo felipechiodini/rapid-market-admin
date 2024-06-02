@@ -1,21 +1,15 @@
 <template>
-  <div v-if="isntLoading">
-
-    <BaseIndex v-if="dashboard" title="Dashboard">
-      <div style="width: 400px;">
-        <canvas id="myChart"></canvas>
-      </div>
-    </BaseIndex>
-    <BaseIndex v-else-if="store" title="Completar Cadastro da Loja">
-      <div class="d-flex align-items-center p-3 gap-3" v-for="(requirement, key) in store.completed_configured" :key="key">
-        <span class="fas fa-lock"></span>
-        <span :class="{ 'text-decoration-line-through': requirement.done === true }">{{ requirement.name }}</span>
-      </div>
-    </BaseIndex>
-  </div>
-  <div v-else>
-    carregando...
-  </div>
+  <BaseIndex v-if="isCompleted === false" title="Complete o cadastro da loja">
+    <div class="d-flex align-items-center p-3 gap-3" v-for="(requirement, key) in store.completed_configured" :key="key">
+      <span class="fas fa-lock"></span>
+      <a @click.prevent="goToRequirement(requirement)"
+        :class="{ 'clickable': requirement.done === false, 'text-decoration-line-through': requirement.done === true }">
+        {{ requirement.name }}
+      </a>
+    </div>
+  </BaseIndex>
+  <BaseIndex v-else title="Dashboard">
+  </BaseIndex>
 </template>
 
 <script>
@@ -53,7 +47,7 @@ export default {
           this.dashboard = data.dashboard
 
           await nextTick()
-          const ctx = document.getElementById('myChart');
+          const ctx = document.getElementById('myChart')
       
           new Chart(ctx, {
               type: 'line',
@@ -74,6 +68,16 @@ export default {
               }
            });
         })
+    },
+    goToRequirement(requirement) {
+      if (requirement.done === true) return
+
+      this.$router.push({
+        name: requirement.router_name,
+        params: {
+          slug: this.$route.params.slug
+        }
+      })
     }
   }
   

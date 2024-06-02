@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex" v-if="isntLoading && store">
-    <SideBar v-if="isCompleted" />
+    <SideBar />
     <RouterView class="flex-grow-1 pt-3 overflow-auto" />
   </div>
 </template>

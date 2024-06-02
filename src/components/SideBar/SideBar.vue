@@ -1,9 +1,6 @@
 <template>
   <div class="wraper" :class="{ 'collapsed': collapsed }">
     <template v-if="loading === false && store">
-      <!-- <button class="btn" @click="toggleCollapsed()">
-        <span :class="{ 'fas fa-chevron-left float-end': collapsed === false, 'fas fa-chevron-right': collapsed === true }"></span>
-      </button> -->
       <StoreCard v-if="collapsed === false" />
       <ul class="m-0">
         <li v-for="(menu, key) in sidebar" :key="key">
