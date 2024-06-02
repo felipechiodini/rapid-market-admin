@@ -1,17 +1,19 @@
 <template>
   <div class="container">
-    <BaseForm :request="request" :onSuccess="onSuccess" class="d-flex flex-column p-4 w-50">
-      <div>
-        <label for="">Nome da Loja</label>
-        <input class="form-control" required v-model="form.name" type="text">
-      </div>
-    </BaseForm>
+    <div class="row justify-content-center">
+      <BaseForm class="w-50" :request="request" :onSuccess="onSuccess">
+        <div class="col-auto">
+          <label for="nome">Nome do Estabelecimento</label>
+          <input class="form-control" id="nome" required v-model="form.name" type="text">
+        </div>
+      </BaseForm>
+    </div>
   </div>
 </template>
 
 <script>
-import { request } from '@/js/api';
-import BaseForm from '@/components/BaseForm.vue';
+import { request } from '@/js/api'
+import BaseForm from '@/components/BaseForm.vue'
 
 export default {
   components: {
