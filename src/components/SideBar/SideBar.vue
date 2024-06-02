@@ -14,7 +14,7 @@
         </li>
       </ul>
     </template>
-    <loading v-else></loading>
+    <loading v-else />
   </div>
 </template>
 

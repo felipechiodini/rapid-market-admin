@@ -40,7 +40,8 @@ export default {
   },
   methods: {
     store() {
-      return requesFromStore(this.$route.params.slug).post(`customer`, this.form)
+      return requesFromStore()
+        .post('customer', this.form)
     },
     onCreated(data) {
       this.$router.push({
