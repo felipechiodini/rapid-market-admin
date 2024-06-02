@@ -7,15 +7,15 @@
       </div>
       <div class="col-4">
         <label for="slug">Identificador</label>
-        <input readonly v-model="store.slug" id="slug" class="form-control">
+        <input disabled v-model="store.slug" id="slug" class="form-control">
       </div>
-      <div>
+      <div class="col-4">
         <label for="telefone">Telefone de contato</label>
-        <input type="text">
+        <input class="form-control" id="telefone" type="text">
       </div>
-      <div>
-        <label for="">Pedido mínimo</label>
-        <input type="text">
+      <div class="col-4">
+        <label for="pedido-minimo">Pedido mínimo</label>
+        <input class="form-control" id="pedido-minimo" type="text">
       </div>
       <div class="col-4">
         <label class="d-block">Logo</label>
