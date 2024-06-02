@@ -1,6 +1,11 @@
 <template>
   <BaseIndex title="Cardápio">
-    
+    <template #buttons>
+      <a :href="cardapiolink" target="_blank" class="btn btn-primary btn-sm">
+        Cardápio
+        <span class="fa-solid fa-arrow-up-right-from-square"></span>
+      </a>
+    </template>
   </BaseIndex>
 </template>
 
@@ -20,21 +25,13 @@ export default {
   mounted() {
     this.load()
   },
-  methods: {
-    load() {
-      requesFromStore(this.$route.params.slug)
-        .get(`payment`)
-        .then(({ data }) => {
-          this.payments = data.payments
-        })
-    },
-    active(payment) {
-      requesFromStore(this.$route.params.slug)
-        .post(`payment/${payment.key}/status`, { active: true })
-        .then(({ data }) => {
-          
-        })
+  computed: {
+    cardapiolink() {
+      return `${import.meta.env.VITE_ORDER_SITE}/${this.$route.params.slug}`
     }
+  },
+  methods: {
+    
   }
 
 }

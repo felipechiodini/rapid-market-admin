@@ -38,7 +38,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 
  ul {
   padding: 0;

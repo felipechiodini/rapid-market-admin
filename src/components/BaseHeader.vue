@@ -8,9 +8,6 @@
         <span class="fa-regular fa-circle-question"></span>
         Ajuda
       </button>
-      <a :href="cardapiolink" target="_blank" class="btn">
-        Cardápio
-      </a>
       <button class="btn btn-sm position-relative" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
         <span class="fa-regular fa-bell"></span>
         <span class="badge-counter">{{ notificationsNotReadCount }}</span>
@@ -41,9 +38,6 @@ export default {
     },
     showButton() {
       return this.$route.name !== 'stores.choose'
-    },
-    cardapiolink() {
-      return `${import.meta.env.VITE_ORDER_SITE}/${this.$route.params.slug}`
     }
   },
   methods: {
