@@ -1,27 +1,30 @@
 <template>
   <BaseIndex title="Dados do Estabelecimento">
-    <BaseForm class="row flex-column gap-4" :request="request">
-      <div class="col-4">
+    <BaseForm class="row" :request="request">
+      <div class="col-12 col-lg-6">
         <label for="nome">Nome da Loja</label>
         <input v-model="store.name" id="nome" class="form-control">
       </div>
-      <div class="col-4">
+      <div class="col-12 col-lg-6">
         <label for="slug">Identificador</label>
         <input disabled v-model="store.slug" id="slug" class="form-control">
       </div>
-      <div class="col-4">
+      <div class="col-12 col-lg-6">
         <label for="telefone">Telefone de contato</label>
         <input class="form-control" id="telefone" type="text">
       </div>
-      <div class="col-4">
+      <div class="col-12 col-lg-6">
         <label for="pedido-minimo">Pedido mínimo</label>
         <input class="form-control" id="pedido-minimo" type="text">
       </div>
-      <div class="col-4">
+      <div class="col-12 col-lg-6">
         <label class="d-block">Logo</label>
-        <div class="border text-center rounded p-2">
-          <img class="image-logo" @click="selectNewImage()" :src="logoImage">
-          <input ref="input-file" type="file" class="d-none">
+        <div class="border text-center rounded p-2" role="button" @click="selectNewImage()">
+          <img class="image-logo" :src="logoImage">
+          <input ref="input-file" @change="e => sendFile(e.target.files[0])"type="file" class="d-none">
+        </div>
+        <div class="progress" v-if="sendingFile.active === true">
+          <div class="progress-bar" role="progressbar" :style="`width: ${sendingFile.progress}%`" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </div>
     </BaseForm>
@@ -40,13 +43,21 @@ export default {
     BaseIndex,
     BaseForm
   },
+  data: () => {
+    return {
+      sendingFile: {
+        active: false,
+        progress: 0
+      }
+    }
+  },
   computed: {
     ...mapState(useStore, ['store']),
     logoImage() {
       if (!this.store?.logo) {
         return '/no-image.jpg'
       } else {
-        return 'https://static.ifood-static.com.br/image/upload/t_thumbnail/logosgde/539c3520-a5b1-4c4c-9713-76332c14f50c/202103082320_Z6hz_i.png'
+        return this.store.logo
       }
     }
   },
@@ -57,6 +68,19 @@ export default {
     request() {
       requesFromStore()
         .put('store', this.store)
+    },
+    sendFile(image) {
+      this.sendingFile.active = true
+      requesFromStore()
+        .postForm('store/logo', { logo: image }, {
+          onUploadProgress: (event) => {
+            this.sendingFile.progress = Math.round((event.loaded * 100) / event.total)
+          }
+        })
+        .finally(() => {
+          this.sendingFile.active = false
+          this.sendingFile.progress = 0
+        })
     }
   }
 }
@@ -70,7 +94,6 @@ export default {
   height: 100px;
   object-fit: cover;
   border-radius: 50%;
-  cursor: pointer;
 }
 
 </style>

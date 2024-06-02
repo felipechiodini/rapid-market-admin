@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar" :class="{ 'collapsed': collapsed }">
+  <div class="sidebar d-none d-md-flex" :class="{ 'collapsed': collapsed }">
     <template v-if="loading === false && store">
       <StoreCard v-if="collapsed === false" />
       <ul class="m-0">
