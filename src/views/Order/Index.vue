@@ -1,27 +1,25 @@
 <template>
-  <div>
-    <BaseIndex title="Categorias">
-      <template #buttons>
-        <button class="btn btn-primary btn-sm" @click="$router.push({ name: 'category.store' })">
-          Nova Categoria
-        </button>
+  <BaseIndex title="Pedidos">
+    <template #buttons>
+      <button class="btn btn-primary btn-sm" @click="$router.push({ name: 'category.store' })">
+        Novo Pedido
+      </button>
+    </template>
+    <BaseTable request="order">
+      <template #content="{ rows }">
+        <tr v-for="(category, key) in rows" :key="key">
+          <td>
+            {{ category.name }}
+          </td>
+          <td>
+            <RouterLink :to="{ name: 'category.update', params: { category_id: category.id }}">
+              Editar
+            </RouterLink>
+          </td>
+        </tr>
       </template>
-      <BaseTable class="table my-4" request="category">
-        <template #content="{ rows }">
-          <tr v-for="(category, key) in rows" :key="key">
-            <td>
-              {{ category.name }}
-            </td>
-            <td>
-              <router-link :to="{ name: 'category.update', params: { category_id: category.id }}">
-                Editar
-              </router-link>
-            </td>
-          </tr>
-        </template>
-      </BaseTable>
-    </BaseIndex>
-  </div>
+    </BaseTable>
+  </BaseIndex>
 </template>
 
 <script>
@@ -30,8 +28,8 @@ import BaseTable from '@/components/BaseTable.vue'
 
 export default {
   components: {
+    BaseIndex,
     BaseTable,
-    BaseIndex
   }
 
 }

@@ -1,6 +1,6 @@
 <template>
   <BaseIndex title="Dados do Estabelecimento">
-    <BaseForm class="row" :request="request">
+    <BaseForm  :request="request">
       <div class="col-12 col-lg-6">
         <label for="nome">Nome da Loja</label>
         <input v-model="store.name" id="nome" class="form-control">
@@ -8,14 +8,6 @@
       <div class="col-12 col-lg-6">
         <label for="slug">Identificador</label>
         <input disabled v-model="store.slug" id="slug" class="form-control">
-      </div>
-      <div class="col-12 col-lg-6">
-        <label for="telefone">Telefone de contato</label>
-        <input class="form-control" id="telefone" type="text">
-      </div>
-      <div class="col-12 col-lg-6">
-        <label for="pedido-minimo">Pedido mínimo</label>
-        <input class="form-control" id="pedido-minimo" type="text">
       </div>
       <div class="col-12 col-lg-6">
         <label class="d-block">Logo</label>

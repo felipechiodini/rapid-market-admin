@@ -16,12 +16,18 @@
             <slot name="content" :rows="data"></slot>
           </tbody>
         </table>
-        <Paginator :page="currentPage" :first="perPage" :rows="10" :totalRecords="page.total" :rowsPerPageOptions="[10, 20, 30]" />
-
-        <Pagination 
-          v-model="currentPage"
-          :perPage="10"
-          :total="page.total" />
+        <div class="d-flex align-items-center">
+          <select class="form-select w-auto ms-auto" v-model="perPage">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+          </select>
+          <BasePagination
+            class="d-flex justify-content-end p-3 m-0"
+            v-model="currentPage"
+            :per-page="perPage"
+            :total="page.total" />
+        </div>
       </div>
     </template>
     <div class="d-flex justify-content-center my-5" v-else-if="loading === true">
@@ -38,17 +44,15 @@
 <script>
 import Loading from './Loading.vue'
 import { requesFromStore } from '@/js/api.js'
-import Pagination from '@/components/Pagination.vue'
+import BasePagination from '@/components/BasePagination.vue'
 import Filters from '@/components/Filters.vue'
-import Paginator from 'primevue/paginator';
 
 export default {
   name: 'BaseTable',
   components: {
     Loading,
-    Pagination,
+    BasePagination,
     Filters,
-    Paginator
 },
   props: ['request'],
   watch: {
@@ -58,10 +62,12 @@ export default {
   },
   data: () => {
     return {
-      loading: true,
       page: null,
-      columns: null,
-      filters: {},
+      loading: true,
+      filters: null,
+      applyedFilters: null,
+      showFilters: false,
+      operators: null,
     }
   },
   computed: {
@@ -73,12 +79,13 @@ export default {
     },
     currentPage: {
       get: function() {
-        return parseInt(this.$route.query.page) ?? 1
+        return this.$route.query.page ?? 1
       },
       set: function(val) {
         this.$router.replace({
           name: this.$route.name,
           query: {
+            ...this.$route.query,
             page: val
           }
         })
@@ -92,6 +99,7 @@ export default {
         this.$router.replace({
           name: this.$route.name,
           query: {
+            ...this.$route.query,
             per_page: val
           }
         })
@@ -122,16 +130,11 @@ export default {
       const page = this.$route.query.page ?? 1
       const per_page = this.$route.query.per_page ?? 10
 
-      requesFromStore(this.$route.params.slug)
+      requesFromStore()
         .get(this.request, { params: { page, per_page, filters }})
         .then(({ data }) => {
           this.page = data.page
           this.columns = data.columns
-
-          data.filters.forEach(filter => {
-            this.filters[filter.column] = filter
-          })
-
         }).catch((error) => {
 
         }).finally(() => {
@@ -139,7 +142,5 @@ export default {
         })
     },
   }
-
-
 }
 </script>

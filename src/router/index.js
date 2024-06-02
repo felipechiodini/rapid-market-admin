@@ -7,6 +7,7 @@ import BannerRouters from './modules/banner.js'
 import ComboRouters from './modules/combo.js'
 import ProductRouters from './modules/product.js'
 import GeneralRouters from './modules/general.js'
+import MenuRouters from './modules/menu.js'
 import CustomerRouters from './modules/customer.js'
 import ScheduleRouters from './modules/Schedule.js'
 import OrderRouters from './modules/order.js'
@@ -85,6 +86,7 @@ const router = createRouter({
           children: [
             ...GeneralRouters,
             ...CustomerRouters,
+            ...MenuRouters,
             ...CategoryRouters,
             ...UserRouters,
             ...CardRouters,
