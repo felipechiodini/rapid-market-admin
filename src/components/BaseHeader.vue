@@ -3,9 +3,13 @@
     <button v-if="showButton" class="btn btn-sm text-primary ms-2" @click="$router.push({ name: 'stores.choose' })">
       <i class="fas fa-chevron-left"></i>
     </button>
-    <div class="d-flex gap-2 ms-auto">
-      <button class="icon-bell text-muted me-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
-        <i class="fa-regular fa-bell"></i>
+    <div class="d-flex gap-3 ms-auto">
+      <button class="btn btn-sm">
+        <span class="fa-regular fa-circle-question"></span>
+        Ajuda
+      </button>
+      <button class="btn btn-sm position-relative" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+        <span class="fa-regular fa-bell"></span>
         <span class="badge-counter">{{ notificationsNotReadCount }}</span>
       </button>
       <button class="falçwojfawjifw" @click="$router.push({ name: 'profile.index' })">
@@ -56,11 +60,6 @@ export default {
     padding: 10px 0;
   }
 
-  header button {
-    background-color: transparent;
-    border: none;
-  }
-
   .falçwojfawjifw {
     margin-right: .7rem;
     border: none;
@@ -71,7 +70,7 @@ export default {
     color: #fff;
   }
 
-  .icon-bell {
+  .fa-regular.fa-bell {
     font-size: 1.2rem;
   }
 
@@ -81,10 +80,9 @@ export default {
     padding: 0 3px;
     color: #fff;
     font-weight: 500;
-    text-align: center;
-    vertical-align: middle;
     font-size: 10px;
-    position: absolute
+    top: 0;
+    position: absolute;
   }
 
 </style>
