@@ -1,7 +1,7 @@
 <template>
-  <div data-bs-toggle="popover" class="d-flex justify-content-center align-items-center mb-3">
-    <div class="fawopfpwoajfwafwa">
-      <h6 class="m-0">{{ store.name }}</h6>
+  <div class="d-flex flex-column gap-2 justify-content-center align-items-center mb-3">
+    <h6 class="m-0">{{ store.name }}</h6>
+    <div class="p-3 rounded w-100 custom">
       <span>
         <span class="fas fa-circle" :class="translate.class"></span>
         {{ translate.label }}
@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import { useStore } from '@/stores/store';
-import { mapState } from 'pinia';
+import { useStore } from '@/stores/store'
+import { mapState } from 'pinia'
 
 export default {
   computed: {
@@ -40,12 +40,9 @@ export default {
 
 <style scoped>
 
-  .fawopfpwoajfwafwa {
-    font-size: .7rem;
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    flex-direction: column;
+  .custom {
+    background-color: #eaeaea;
+    border: 1px solid #ccc;
   }
 
 </style>

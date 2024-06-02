@@ -1,6 +1,6 @@
 <template>
   <BaseIndex title="Dados do Estabelecimento">
-    <BaseForm class="row flex-column gap-4">
+    <BaseForm class="row flex-column gap-4" :request="request">
       <div class="col-4">
         <label for="nome">Nome da Loja</label>
         <input v-model="store.name" id="nome" class="form-control">
@@ -20,7 +20,7 @@
       <div class="col-4">
         <label class="d-block">Logo</label>
         <div class="border text-center rounded p-2">
-          <img class="image-logo" @click="selectNewImage()" src="https://static.ifood-static.com.br/image/upload/t_thumbnail/logosgde/539c3520-a5b1-4c4c-9713-76332c14f50c/202103082320_Z6hz_i.png" alt="">
+          <img class="image-logo" @click="selectNewImage()" :src="logoImage">
           <input ref="input-file" type="file" class="d-none">
         </div>
       </div>
@@ -33,6 +33,7 @@ import BaseIndex from '@/components/BaseIndex.vue'
 import BaseForm from '@/components/BaseForm.vue'
 import { useStore } from '@/stores/store'
 import { mapState } from 'pinia'
+import { requesFromStore } from '@/js/api'
 
 export default {
   components: {
@@ -40,11 +41,22 @@ export default {
     BaseForm
   },
   computed: {
-    ...mapState(useStore, ['store'])
+    ...mapState(useStore, ['store']),
+    logoImage() {
+      if (!this.store?.logo) {
+        return '/no-image.jpg'
+      } else {
+        return 'https://static.ifood-static.com.br/image/upload/t_thumbnail/logosgde/539c3520-a5b1-4c4c-9713-76332c14f50c/202103082320_Z6hz_i.png'
+      }
+    }
   },
   methods: {
     selectNewImage() {
       this.$refs['input-file'].click()
+    },
+    request() {
+      requesFromStore()
+        .put('store', this.store)
     }
   }
 }
