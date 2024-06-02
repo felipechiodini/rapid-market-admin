@@ -27,6 +27,7 @@
                 <span class="ms-2 order-number text-muted">#{{ order.id }}</span>
                 <span class="ms-auto">{{ order.payment_type }} • {{ order.total }}</span>
               </div>
+              {{ order.status_label }}
               <span class="badge badge-custom" :class="getOrderStatusBadge(order)">
                 {{ order.status_label }}
               </span>
@@ -168,7 +169,7 @@ export default {
   mounted() {
     this.load()
 
-    window.Echo.private(`stores.${this.$route.params.slug}`)
+    window.Echo.private(`orders.${this.$route.params.slug}`)
       .listen('.App\\Events\\OrderCreated', (order) => {
         this.pushOrder(order)
       })
