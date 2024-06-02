@@ -9,11 +9,11 @@
           </button>
         </div>
       </div>
-      <div v-if="hasStores" class="rounded overflow-hidden" style="width: 500px;">
+      <div class="rounded overflow-hidden" style="width: 500px;">
         <div class="p-3 bg-primary">
           <h6 class="m-0 text-white">Minhas Lojas</h6>
         </div>
-        <template v-if="loadingStores">
+        <template v-if="loadingStores === false">
           <StoreButton v-for="(store, key) in stores" :key="key" @click="goTo(store)">
             {{ store.name }}
           </StoreButton>
@@ -21,9 +21,6 @@
         <div class="d-flex justify-content-center mt-5" v-else>
           <Loading />
         </div>
-      </div>
-      <div v-else>
-        <h6 class="m-0">Cadastre sua primeira loja</h6>
       </div>
     </div>
   </div>
@@ -42,12 +39,7 @@ export default {
   data: () => {
     return {
       stores: [],
-      loadingStores: false
-    }
-  },
-  computed: {
-    hasStores() {
-      return this.stores.length > 0
+      loadingStores: true
     }
   },
   mounted() {
