@@ -2,12 +2,20 @@
   <BaseIndex title="Dados do Estabelecimento">
     <BaseForm class="row flex-column gap-4">
       <div class="col-4">
-        <label for="nome">Nome</label>
+        <label for="nome">Nome da Loja</label>
         <input v-model="store.name" id="nome" class="form-control">
       </div>
       <div class="col-4">
         <label for="slug">Identificador</label>
         <input readonly v-model="store.slug" id="slug" class="form-control">
+      </div>
+      <div>
+        <label for="telefone">Telefone de contato</label>
+        <input type="text">
+      </div>
+      <div>
+        <label for="">Pedido mínimo</label>
+        <input type="text">
       </div>
       <div class="col-4">
         <label class="d-block">Logo</label>

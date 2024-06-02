@@ -1,95 +1,92 @@
 <template>
-  <div>
-    <BaseIndex title="Horários">
-      <div class="row mt-4">
-        <div class="mb-3" v-for="(weekDay, key) in weekDays" :key="key">
-          <h6>{{ weekDay.label }}</h6>
-          <div class="flex-column">
-            <div class="d-flex align-items-center mb-2" v-for="(schedule, key) in weekDay.schedules" :key="key">
-              <span class="me-2">Loja abre das</span>
-              <input step="900" v-model="schedule.start" type="time" class="form-control" style="width: auto;" />
-              <span class="mx-2">até</span>
-              <input step="900" v-model="schedule.end" type="time" class="form-control" style="width: auto;" />
-              <button class="btn btn-sm" v-if="weekDay.schedules.length > 1" @click="removeSchedule(weekDay, key)">
-                <span class="fas fa-trash"></span>
-              </button>
-            </div>
-            <button class="btn btn-sm" @click="addSchedule(weekDay)">
-              <span class="fas fa-plus-square"></span>
-            </button>
+  <BaseIndex title="Horário de funcionamento" subtitle="Escolha os dias e horários que sua loja receberá pedidos.">
+    <template #buttons>
+      <button class="btn btn-primary" @click="showModal = true">
+        Novo Horário
+      </button>
+    </template>
+
+    <div class="p-3">
+      <table>
+        <tr>
+          <td>dwas</td>
+        </tr>
+      </table>
+    </div>
+
+
+    <Modal v-model="showModal" title="Escolha os dias e horários que a loja vai abrir">
+      <div class="d-flex flex-column gap-5">
+        <div>
+          <h6 class="mb-3 fw-normal">Escolha os <strong>dias da semana</strong>:</h6>
+          <div class="d-flex gap-2">
+            <BaseButton v-for="(weekDay, key) in weekDays" :key="key">
+              {{ weekDay }}
+            </BaseButton>
+          </div>
+        </div>
+        <div>
+          <h6 class="mb-3 fw-normal">Selecione o horário em que a loja <strong>ficará aberta</strong>:</h6>
+          <div class="d-flex align-items-center gap-2">
+            <span>Abrir a loja das</span> 
+            <select class="form-select w-auto">
+              <option :value="option" v-for="(option, key) in schedules" :key="key">
+                {{ option }}
+              </option>
+            </select>
+            <span>até</span>
+            <select class="form-select w-auto">
+              <option :value="option" v-for="(option, key) in schedules" :key="key">
+                {{ option }}
+              </option>
+            </select>
           </div>
         </div>
       </div>
-    </BaseIndex>
-  </div>
+    </Modal>
+  </BaseIndex>
 </template>
 
 <script>
 import BaseIndex from '@/components/BaseIndex.vue'
-import BaseTable from '@/components/BaseTable.vue'
+import BaseButton from './Components/Button.vue'
+import Modal from './Components/Modal.vue'
 
 export default {
   components: {
-    BaseTable,
-    BaseIndex
+    BaseIndex,
+    BaseButton,
+    Modal
   },
   data: () => {
     return {
-      weekDays: {
-        1: {
-          label: 'Domingo',
-          schedules: [
-            { start: 0, end: 0 },
-          ]
-        },
-        2: {
-          label: 'Segunda',
-          schedules: [
-            { start: 0, end: 0 }
-          ]
-        },
-        3: {
-          label: 'Terça',
-          schedules: [
-            { start: 0, end: 0 }
-          ]
-        },
-        4: {
-          label: 'Quarta',
-          schedules: [
-            { start: 0, end: 0 }
-          ]
-        },
-        5: {
-          label: 'Quinta',
-          schedules: [
-            { start: 0, end: 0 }
-          ]
-        },
-        6: {
-          label: 'Sexta',
-          schedules: [
-            { start: 0, end: 0 }
-          ]
-        },
-        7: {
-          label: 'Sabado',
-          schedules: [
-            { start: 0, end: 0 }
-          ]
-        },
-      }
-
+      showModal: true
     }
   },
-  methods: {
-    removeSchedule(weekDay, key) {
-      weekDay.schedules.splice(key, 1)
+  computed: {
+    schedules() {
+      const array = []
+      for (let hour = 0; hour <= 23; hour++) {
+        for (let minute = 0; minute < 4; minute++) {
+          array.push(`${String(hour).padStart(2, '0')}:${String(minute * 15).padStart(2, '0') }`)
+        }
+      }
+
+      array.push('23:59')
+
+      return array 
     },
-    addSchedule(weekDay) {
-      weekDay.schedules.push({ start: 0, end: 0 })
+    weekDays() {
+      return [
+        'Seg',
+        'Ter',
+        'Qua',
+        'Qui',
+        'Sex',
+        'Sab',
+        'Dom',
+      ]
     }
   }
-
 }
 </script>
