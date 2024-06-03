@@ -1,123 +1,121 @@
 <template>
-  <div>
-    <BaseIndex title="Gestor de Pedidos">
-    <template #buttons>
-      <button class="btn btn-sm btn-primary">
-        Pausa de Emergência
-      </button>
-    </template>
-    <div class="doijawodiaw rounded d-flex mt-4">
-      <div class="waopfjoawp rounded-start">
-        <div class="p-2 border-bottom border-end">
-          <div class="position-relative">
-            <input type="text" v-model="filters.id" class="form-control form-control-sm" placeholder="Número pedido" @input="doSearch">
-            <span v-if="filters.id !== null" class="fas fa-times podawkopfjawojfwaoif" @click="clearSearch()"></span>
-          </div>
-        </div>
-        <div class="foiawjfiwafawi">
-          <template v-if="orders !== null">
-            <div
-              class="awonjfowajf"
-              :class="{ 'selected shadow': order.id === selectedOrder?.id }"
-              v-for="(order, key) in orders"
-              :key="key"
-              @click="loadOrderFromIndex(order)">
-              <div class="d-flex text-end">
-                <span class="fw-bold text-start">{{ order.customer.name }}</span>
-                <span class="ms-2 order-number text-muted">#{{ order.id }}</span>
-                <span class="ms-auto">{{ order.payment_type }} • {{ order.total }}</span>
-              </div>
-              <span class="badge badge-custom" :class="getOrderStatusBadge(order)">
-                {{ order.status_label }}
-              </span>
-              <span>
-                {{ order.neighborhood }} - {{ order.distance }}
-              </span>
-              <span>
-                {{ formatOrderSince(order.ordered_since) }}
-              </span>
-            </div>  
-          </template>
-          <div class="d-flex justify-content-center align-items-center h-100" v-else>
-            <loading size="2rem" />
-          </div>
+  <BaseIndex title="Gestor de Pedidos">
+  <template #buttons>
+    <button class="btn btn-sm btn-primary">
+      Pausa de Emergência
+    </button>
+  </template>
+  <div class="doijawodiaw rounded d-flex mt-4">
+    <div class="waopfjoawp rounded-start">
+      <div class="p-2 border-bottom border-end">
+        <div class="position-relative">
+          <input type="text" v-model="filters.id" class="form-control form-control-sm" placeholder="Número pedido" @input="doSearch">
+          <span v-if="filters.id !== null" class="fas fa-times podawkopfjawojfwaoif" @click="clearSearch()"></span>
         </div>
       </div>
-      <div class="fapowfoiwa shadow rounded-end">
-        <template v-if="selectedOrder !== null && loadingOrder === false">
-          <div class="d-flex align-items-center">
-            <h5 class="m-0 me-2">{{ selectedOrder.customer.name }}</h5>
-            <span class="text-muted">#{{ selectedOrder.id }}</span>
-            <button class="btn btn-success btn-sm ms-3" @click="contactCustomer(selectedOrder.customer)">
-              <i class="fa-brands fa-whatsapp"></i>
-            </button>
-          </div>
-          <div>
-            <span>{{ selectedOrder.payment.type_label }}</span> • 
-            <span>{{ selectedOrder.delivery.type_label }}</span>
-          </div>
-          <div class="d-flex">
-            <component :is="deliveryComponent" :address="selectedOrder.address" />
-          </div>
-          <span>Pedido realizado às: {{ selectedOrder.created_at }}</span>
-          <div class="border rounded bg-light p-2" v-for="(product, key) in selectedOrder.products" :key="key">
-            <div class="d-flex align-items-center">
-              <span class="me-2">{{ product.amount }}x</span>
-              <h6 class="m-0">{{ product.name }}</h6>
-              <span class="ms-auto">{{ product.value }}</span>
+      <div class="foiawjfiwafawi">
+        <template v-if="orders !== null">
+          <div
+            class="awonjfowajf"
+            :class="{ 'selected shadow': order.id === selectedOrder?.id }"
+            v-for="(order, key) in orders"
+            :key="key"
+            @click="loadOrderFromIndex(order)">
+            <div class="d-flex text-end">
+              <span class="fw-bold text-start">{{ order.customer.name }}</span>
+              <span class="ms-2 order-number text-muted">#{{ order.id }}</span>
+              <span class="ms-auto">{{ order.payment_type }} • {{ order.total }}</span>
             </div>
-            <p class="m-0">{{ product.observation }}</p>
-          </div>
-          <table class="align-self-end w-50 mt-2">
-            <tr>
-              <td>Produtos</td>
-              <td class="text-end">{{ selectedOrder.products_total }}</td>
-            </tr>
-            <tr>
-              <td>Taxa de Entrega</td>
-              <td class="text-end">{{ selectedOrder.delivery_fee }}</td>
-            </tr>
-            <tr v-if="selectedOrder.discount">
-              <td>Desconto</td>
-              <td class="text-end">{{ selectedOrder.discount }}</td>
-            </tr>
-            <tr class="border-top">
-              <td>Total</td>
-              <td class="text-end">{{ selectedOrder.total }}</td>
-            </tr>
-          </table>
-          <div>
-            <button class="btn btn-primary btn-sm me-3" @click="doNextStep()" v-if="showButtonNextStep">
-              {{ nextStepButton.label }}
-            </button>
-            <button class="btn btn-outline-primary btn-sm" @click="cancelOrder()" v-if="showButtonCanceled">
-              Cancelar
-            </button>
-          </div>
+            <span class="badge badge-custom" :class="getOrderStatusBadge(order)">
+              {{ order.status_label }}
+            </span>
+            <span>
+              {{ order.neighborhood }} - {{ order.distance }}
+            </span>
+            <span>
+              {{ formatOrderSince(order.ordered_since) }}
+            </span>
+          </div>  
         </template>
-        <div class="d-flex justify-content-center align-items-center h-100" v-else-if="loadingOrder === true">
-          <loading size="3rem" />
-        </div>
-        <div class="d-flex flex-column h-100 align-items-center justify-content-center" v-else>
-          <i class="fas fa-arrow-left text-primary" style="font-size: 2rem;"></i>
-          <h6>Selecione um pedido</h6>
+        <div class="d-flex justify-content-center align-items-center h-100" v-else>
+          <loading size="2rem" />
         </div>
       </div>
     </div>
-    </BaseIndex>
+    <div class="fapowfoiwa rounded-end">
+      <template v-if="selectedOrder !== null && loadingOrder === false">
+        <div class="d-flex align-items-center">
+          <h5 class="m-0 me-2">{{ selectedOrder.customer.name }}</h5>
+          <span class="text-muted">#{{ selectedOrder.id }}</span>
+          <button class="btn btn-success btn-sm ms-3" @click="contactCustomer(selectedOrder.customer)">
+            <i class="fa-brands fa-whatsapp"></i>
+          </button>
+        </div>
+        <div>
+          <span>{{ selectedOrder.payment.type_label }}</span> • 
+          <span>{{ selectedOrder.delivery.type_label }}</span>
+        </div>
+        <div class="d-flex">
+          <component :is="deliveryComponent" :address="selectedOrder.address" />
+        </div>
+        <span>Pedido realizado às: {{ selectedOrder.created_at }}</span>
+        <div class="border rounded bg-light p-2" v-for="(product, key) in selectedOrder.products" :key="key">
+          <div class="d-flex align-items-center">
+            <span class="me-2">{{ product.amount }}x</span>
+            <h6 class="m-0">{{ product.name }}</h6>
+            <span class="ms-auto">{{ product.value }}</span>
+          </div>
+          <p class="m-0">{{ product.observation }}</p>
+        </div>
+        <table class="align-self-end w-50 mt-2">
+          <tr>
+            <td>Produtos</td>
+            <td class="text-end">{{ selectedOrder.products_total }}</td>
+          </tr>
+          <tr>
+            <td>Taxa de Entrega</td>
+            <td class="text-end">{{ selectedOrder.delivery_fee }}</td>
+          </tr>
+          <tr v-if="selectedOrder.discount">
+            <td>Desconto</td>
+            <td class="text-end">{{ selectedOrder.discount }}</td>
+          </tr>
+          <tr class="border-top">
+            <td>Total</td>
+            <td class="text-end">{{ selectedOrder.total }}</td>
+          </tr>
+        </table>
+        <div>
+          <button class="btn btn-primary btn-sm me-3" @click="doNextStep()" v-if="showButtonNextStep">
+            {{ nextStepButton.label }}
+          </button>
+          <button class="btn btn-outline-primary btn-sm" @click="cancelOrder()" v-if="showButtonCanceled">
+            Cancelar
+          </button>
+        </div>
+      </template>
+      <div class="d-flex justify-content-center align-items-center h-100" v-else-if="loadingOrder === true">
+        <loading size="3rem" />
+      </div>
+      <div class="d-flex flex-column h-100 align-items-center justify-content-center" v-else>
+        <i class="fas fa-arrow-left text-primary" style="font-size: 2rem;"></i>
+        <h6>Selecione um pedido</h6>
+      </div>
+    </div>
   </div>
+  </BaseIndex>
   <!-- <EmergencyStop /> -->
 </template>
 
 <script>
 import BaseIndex from '@/components/BaseIndex.vue'
-import Loading from '@/components/Loading.vue';
-import { requesFromStore } from '@/js/api.js';
-import { CANCELED, DISPATCHED, getButton } from '@/js/OrderStatus';
+import Loading from '@/components/Loading.vue'
+import { requesFromStore } from '@/js/api.js'
+import { CANCELED, DISPATCHED, getButton } from '@/js/OrderStatus'
 import debounce from 'lodash.debounce'
 import Delivery from '@/views/OrderManager/Shipping/Delivery.vue'
 import OnSite from '@/views/OrderManager/Shipping/OnSite.vue'
-import EmergencyStop from './EmergencyStop.vue';
+import EmergencyStop from './EmergencyStop.vue'
 
 export default {
   components: {
@@ -231,6 +229,10 @@ export default {
       this.load()
     },
     formatOrderSince(ordered_since) {
+      if (ordered_since < 10) {
+        return 'alguns segundos atrás'
+      }
+
       if (ordered_since < 60) {
         return `${ordered_since} segundos atrás`
       }
