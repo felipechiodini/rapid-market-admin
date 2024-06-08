@@ -13,6 +13,7 @@ import ScheduleRouters from './modules/Schedule.js'
 import OrderRouters from './modules/order.js'
 import AddressRouters from './modules/Address.js'
 import PaymentRouters from './modules/Payment.js'
+import NeighborhoodRouters from './modules/Neighborhood.js'
 import DeliveryRouters from './modules/Delivery.js'
 import { useUserStore } from '@/stores/user'
 
@@ -98,7 +99,8 @@ const router = createRouter({
             ...OrderRouters,
             ...AddressRouters,
             ...PaymentRouters,
-            ...DeliveryRouters
+            ...DeliveryRouters,
+            ...NeighborhoodRouters
           ]
         }
       ]

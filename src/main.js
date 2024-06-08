@@ -10,6 +10,7 @@ import ToastService from 'primevue/toastservice'
 import { Money3Directive } from 'v-money3'
 import Modal from './js/Plugins/Modal'
 import { request } from '@/js/api.js'
+import General from '@/js/Mixins/General.js'
 
 import './assets/main.scss'
 import 'primevue/resources/themes/aura-light-green/theme.css'
@@ -46,6 +47,7 @@ pinia.use(piniaPluginPersistedstate)
 
 app.directive('money', Money3Directive)
 app.use(ToastService)
+app.mixin(General)
 app.use(Modal)
 app.use(PrimeVue)
 app.use(pinia)

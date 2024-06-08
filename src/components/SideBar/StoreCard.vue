@@ -2,13 +2,18 @@
   <div class="d-flex flex-column gap-2 justify-content-center align-items-center mb-3">
     <h6 class="m-0">{{ store.name }}</h6>
     <div class="p-3 rounded w-100 custom">
-      <span>
-        <span class="fas fa-circle" :class="translate.class"></span>
-        {{ translate.label }}
-      </span>
+      <span class="fas fa-circle me-2" :class="translate.class"></span>
+      <span>{{ translate.label }}</span>
       <span v-if="store.status.is_open === false">
         {{ store.status.open_in }}
       </span>
+    </div>
+    <div class="dwopajoaw">
+      Loajsdpwadw
+
+      <div>
+        
+      </div>
     </div>
   </div>
 </template>
@@ -41,8 +46,25 @@ export default {
 <style scoped>
 
   .custom {
+    font-size: .8rem;
     background-color: #eaeaea;
     border: 1px solid #ccc;
+  }
+
+  .dwopajoaw {
+    display: none;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    box-shadow: 0 0 5px #ccc;
+    border-radius: 5px;
+    position: absolute;
+    left: 220px;
+    top: 100px;
+    height: 100px;
+  }
+
+  .custom:hover + .dwopajoaw {
+    display: block !important;
   }
 
 </style>

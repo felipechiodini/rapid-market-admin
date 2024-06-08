@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex" v-if="isntLoading && store">
     <SideBar />
-    <RouterView class="flex-grow-1 pt-3 overflow-auto" />
+    <RouterView class="flex-grow-1 py-3 px-5 overflow-auto" />
   </div>
 </template>
 

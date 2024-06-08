@@ -4,20 +4,22 @@
       <StoreCard v-if="collapsed === false" />
       <ul class="m-0">
         <li v-for="(menu, key) in sidebar" :key="key">
-          <router-link class="rounded mb-3" :class="{ 'selected': menu.name === $route.name }" :to="{ name: menu.name }" v-if="!menu.childrens">
+          <RouterLink class="rounded mb-3" :class="{ 'selected': menu.name === $route.name }" :to="{ name: menu.name }" v-if="!menu.childrens">
             <i :class="menu.icon" />
             <span>{{ menu.label }}</span>
-          </router-link>
+          </RouterLink>
         </li>
       </ul>
     </template>
-    <loading v-else />
+    <div class="d-flex justify-content-center align-items-center h-100" v-else>
+      <loading />
+    </div>
   </div>
 </template>
 
 <script>
 import { requesFromStore } from '@/js/api.js'
-import Loading from '../Loading.vue' 
+import Loading from '@/components/Loading.vue' 
 import StoreCard from './StoreCard.vue'
 import { Popover } from 'bootstrap'
 import { mapState } from 'pinia'

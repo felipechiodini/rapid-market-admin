@@ -1,9 +1,11 @@
 <template>
   <div class="container">
     <div class="d-flex">
-      <div>
+      <div class="mb-3">
         <h4 class="mb-0">{{ title }}</h4>
-        <span class="subtitle mt-2" v-if="subtitle">{{ subtitle }}</span>
+        <span class="subtitle mt-2" v-if="subtitle">
+          {{ subtitle }}
+        </span>
       </div>
       <div class="ms-auto">
         <slot name="buttons"></slot>
