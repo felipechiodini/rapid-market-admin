@@ -11,7 +11,7 @@
       </button>
       <button class="btn btn-sm position-relative" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
         <span class="fa-regular fa-bell"></span>
-        <span class="badge-counter">{{ notificationsNotReadCount }}</span>
+        <span class="badge-counter" v-if="notificationsNotReadCount > 0">{{ notificationsNotReadCount }}</span>
       </button>
       <button class="falçwojfawjifw" @click="$router.push({ name: 'profile.index' })">
         <span>{{ initialLetters }}</span>

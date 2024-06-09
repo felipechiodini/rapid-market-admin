@@ -4,10 +4,11 @@
       <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Notificações</h5>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="daowjfoawpfjawo p-3" v-for="(notification, key) in notifications" :key="key">
+    <div class="daowjfoawpfjawo p-3" @click="maskAsRead(notification)" v-for="(notification, key) in notifications" :key="key">
       <div class=" justify-content-between">
         <h6 class="m-0">{{ notification.title }}</h6>
         <p class="m-0" v-html="notification.content"></p>
+        <span>{{ notification.created_at }}</span>
       </div>
       <div>
         <span v-if="notification.read === false" class="fas fa-circle text-primary"></span>
@@ -28,6 +29,7 @@
 import { useNotificationStore } from '@/stores/notification'
 import { mapActions, mapState } from 'pinia'
 import { useUserStore } from '@/stores/user'
+import { request } from '@/js/api.js'
 import BaseButton from '@/components/BaseButton.vue'
 
 export default {
@@ -41,13 +43,14 @@ export default {
   },
   mounted() {
     this.load()
+    this.getUnreadCount()
 
     window.Echo.private(`notifications.${this.user.id}`)
       .listen('.notification', (e) => {
         const audio = new Audio('/toastnotification.mp3')
         audio.play()
-        this.$toast.add({ summary: e.userNotification.title, detail: e.userNotification.content, life: 3000 });
-        this.push(e.userNotification)
+        this.$toast.add({ summary: e.notification.title, detail: e.notification.content, life: 3000 });
+        this.push(e.notification)
       })
   },
   computed: {
@@ -55,7 +58,12 @@ export default {
     ...mapState(useNotificationStore, ['notifications', 'hasMoreNotifications', 'loading'])
   },
   methods: {
-    ...mapActions(useNotificationStore, ['load', 'push']),
+    ...mapActions(useNotificationStore, ['load', 'getUnreadCount', 'decrementUnreadCounter', 'push']),
+    maskAsRead(notification) {
+      notification.read = true
+      this.decrementUnreadCounter()
+      request().post(`notification/${notification.id}/read`)
+    }
   }
 }
 </script>

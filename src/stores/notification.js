@@ -8,7 +8,8 @@ export const useNotificationStore = defineStore('notification', {
       page: null,
       loading: false,
       notifications: [],
-      currentPage: 0
+      currentPage: 0,
+      unread: 0
     }
   },
   getters: {
@@ -33,8 +34,15 @@ export const useNotificationStore = defineStore('notification', {
         })
         .finally(() => this.loading = false)
     },
+    decrementUnreadCounter() {
+      this.unread--
+    },
+    getUnreadCount() {
+      request()
+        .get('notification/unread-count')
+        .then(({ data }) => this.unread = data.count)
+    },
     push(notification) {
-      console.log(notification)
       this.notifications.unshift(notification)
     }
   }
