@@ -21,9 +21,9 @@
             {{ product.price_to }}
           </td>
           <td>
-            <router-link :to="{ name: 'product.update', params: { product_id: product.id }}">
+            <RouterLink :to="{ name: 'product.update', params: { product_id: product.id }}">
               Editar
-            </router-link>
+            </RouterLink>
           </td>
         </tr>
       </template>
