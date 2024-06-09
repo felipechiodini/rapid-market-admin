@@ -33,7 +33,7 @@ export default {
         },
         true: {
           label: 'Loja Aberta',
-          class: 'text-sucess'
+          class: 'text-success'
         }
       }
 
