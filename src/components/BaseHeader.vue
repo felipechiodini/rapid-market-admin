@@ -1,7 +1,8 @@
 <template>
   <header>
-    <button v-if="showButton" class="btn btn-sm text-primary ms-2" @click="$router.push({ name: 'stores.choose' })">
+    <button v-if="showButton" class="btn btn-outline-primary btn-sm" @click="$router.push({ name: 'stores.choose' })">
       <i class="fas fa-chevron-left"></i>
+      Lojas
     </button>
     <div class="d-flex gap-3 ms-auto">
       <button class="btn btn-sm">
@@ -57,11 +58,10 @@ export default {
     box-shadow: 0 0 3px #e3e3e3;
     border-bottom: 1px solid #eaeaea;
     width: 100%;
-    padding: 10px 0;
+    padding: 10px;
   }
 
   .falçwojfawjifw {
-    margin-right: .7rem;
     border: none;
     border-radius: 50%;
     height: 35px;

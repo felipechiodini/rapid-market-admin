@@ -4,8 +4,8 @@
       <StoreCard v-if="collapsed === false" />
       <ul class="m-0">
         <li v-for="(menu, key) in sidebar" :key="key">
-          <RouterLink class="rounded" :class="{ 'selected': menu.name === $route.name }" :to="{ name: menu.name }" v-if="!menu.childrens">
-            <span :class="menu.icon" />
+          <RouterLink class="rounded p-1" :class="{ 'selected': menu.name === $route.name }" :to="{ name: menu.name }" v-if="!menu.childrens">
+            <span class="icon" :class="menu.icon" />
             <span>{{ menu.label }}</span>
           </RouterLink>
         </li>
@@ -97,11 +97,10 @@ export default {
     display: none;
   }
 
-  .sidebar span {
+  .sidebar .icon {
     font-size: 1rem;
-    width: 30px;
+    width: 35px;
     margin: 5px;
-    padding: 0 10px;
   }
 
   .sidebar li {

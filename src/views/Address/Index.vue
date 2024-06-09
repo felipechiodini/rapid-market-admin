@@ -1,23 +1,21 @@
 <template>
-  <BaseIndex title="Endereço da Loja">
-    <div class="m-5">
-      <div class="d-flex flex-column" v-if="isntLoading">
-        <span>
-          {{ address.street }},
-          {{ address.number }},
-          {{ address.complement }},
-          {{ address.neighborhood }}
-        </span>
-        <span>
-          CEP - {{ address.cep }}
-        </span>
-        <span>
-          {{ address.city }} - {{ address.state }}
-        </span>
-        <button class="btn btn-primary w-25 mt-3" @click="$router.push({ name: 'address.update' })">
-          Editar Endereço
-        </button>
-      </div>
+  <BaseIndex title="Endereço da Loja" subtitle="">
+    <div class="d-flex flex-column" v-if="isntLoading">
+      <span>
+        {{ address.street }},
+        {{ address.number }},
+        {{ address.complement }},
+        {{ address.neighborhood }}
+      </span>
+      <span>
+        CEP - {{ address.cep }}
+      </span>
+      <span>
+        {{ address.city }} - {{ address.state }}
+      </span>
+      <button class="btn btn-primary w-25 mt-3" @click="$router.push({ name: 'address.update' })">
+        Editar Endereço
+      </button>
     </div>
   </BaseIndex>
 </template>
