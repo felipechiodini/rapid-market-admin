@@ -1,6 +1,6 @@
 <template>
   <BaseIndex title="Novo Produto">
-    <BaseForm :request="request">
+    <BaseForm :request="request" :onSuccess="({ data }) => $router.push({ name: 'product.update', params: { product_id: data.product.id } })">
       <div class="row">
         <div class="col-6">
           <label for="product-name">Nome</label>
@@ -15,20 +15,12 @@
           </select>
         </div>
         <div class="col-6">
-          <label for="product-price-from">Preço de</label>
-          <input class="form-control" id="product-price-from" v-model="form.price.from" />
+          <label for="product-price-from">Preço</label>
+          <input class="form-control" id="product-price-from" v-model="form.price" />
         </div>
         <div class="col-6">
-          <label for="product-price-to">Preço por</label>
-          <input class="form-control" id="product-price-to" v-model="form.price.to" />
-        </div>
-        <div class="col-12">
           <label for="product-description">Descrição</label>
           <textarea class="form-control" v-model="form.description" id="product-description" rows="5"></textarea>
-        </div>
-        <div>
-          <label for="product-category">Fotos</label>
-          <photo-uploader :multiple="true" v-model="form.photos" />
         </div>
       </div>
     </BaseForm>
@@ -51,13 +43,9 @@ export default {
     return {
       form: {
         name: null,
-        price: {
-          from: null,
-          to: null,
-        },
+        price: null,
         description: null,
         category_id: null,
-        photos: null
       },
       categories: null,
       config: {
@@ -76,7 +64,7 @@ export default {
   methods: {
     request() {
       return requesFromStore()
-        .postForm('product', this.form)
+        .post('product', this.form)
     },
     fetchCategories() {
       requesFromStore()

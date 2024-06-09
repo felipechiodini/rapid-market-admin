@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="onSubmit()" class="border p-3 rounded mt-3">
+  <form @submit.prevent="onSubmit()" class="border p-3 rounded">
     <slot></slot>
     <div class="d-flex gap-2 mt-2">
       <template slot="cancel-button">

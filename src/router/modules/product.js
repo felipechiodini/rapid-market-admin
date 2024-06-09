@@ -13,7 +13,7 @@ export default [{
     component: Store
   },
   {
-    path: '/:slug/produto/:product_id',
+    path: '/:slug/produto/:product_id/editar',
     name: 'product.update',
     component: Update
   }

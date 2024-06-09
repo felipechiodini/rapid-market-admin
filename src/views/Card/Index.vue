@@ -1,24 +1,20 @@
 <template>
-  <div>
-    <BaseIndex title="Comandas">
-      <template #buttons>
-        <button class="btn btn-primary">Nova Comanda</button>
+  <BaseIndex title="Comandas">
+    <template #buttons>
+      <button class="btn btn-primary btn-sm">
+        Nova Comanda
+      </button>
+    </template>
+    <BaseTable request="card">
+      <template #content="{ rows }">
+        <tr v-for="(customer, key) in rows" :key="key">
+          <td>
+            {{ customer.name }}
+          </td>
+        </tr>
       </template>
-      <base-table class="table" request="card">
-        <template #header>
-          <th>Nome</th>
-          <th></th>
-        </template>
-        <template #content="{ rows }">
-          <tr v-for="(customer, key) in rows" :key="key">
-            <td>
-              {{ customer.name }}
-            </td>
-          </tr>
-        </template>
-      </base-table>
-    </BaseIndex>
-  </div>
+    </BaseTable>
+  </BaseIndex>
 </template>
 
 <script>
@@ -30,6 +26,5 @@ export default {
     BaseTable,
     BaseIndex
   }
-
 }
 </script>
