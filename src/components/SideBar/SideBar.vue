@@ -99,8 +99,8 @@ export default {
 
   .sidebar .icon {
     font-size: 1rem;
-    width: 35px;
-    margin: 5px;
+    width: 15px;
+    margin: 10px;
   }
 
   .sidebar li {
