@@ -4,12 +4,11 @@
 </template>
 
 <script>
-import Toast from 'primevue/toast';
+import Toast from 'primevue/toast'
 
 export default {
   components: {
     Toast
   }
-
 }
 </script>
