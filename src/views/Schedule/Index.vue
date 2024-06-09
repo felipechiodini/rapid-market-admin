@@ -1,15 +1,22 @@
 <template>
   <BaseIndex title="Horário de funcionamento" subtitle="Escolha os dias e horários que sua loja receberá pedidos.">
     <template #buttons>
-      <button class="btn btn-primary" @click="showModal = true">
+      <button class="btn btn-primary btn-sm" @click="showModal = true">
         Novo Horário
       </button>
     </template>
 
-    <div class="p-3">
-      <table>
-        <tr>
-          <td>dwas</td>
+    <div>
+      <table class="table">
+        <tr v-for="(schedule, key) in schedules" :key="key">
+          <td>{{ schedule.week_day }}</td>
+          <td>{{ schedule.start }}</td>
+          <td>{{ schedule.end }}</td>
+          <td>
+            <button class="btn btn-primary btn-sm">
+              <span class="fas fa-trash"></span>
+            </button>
+          </td>
         </tr>
       </table>
     </div>
@@ -30,13 +37,13 @@
           <div class="d-flex align-items-center gap-2">
             <span>Abrir a loja das</span> 
             <select class="form-select w-auto">
-              <option :value="option" v-for="(option, key) in schedules" :key="key">
+              <option :value="option" v-for="(option, key) in avaiableSchedules" :key="key">
                 {{ option }}
               </option>
             </select>
             <span>até</span>
             <select class="form-select w-auto">
-              <option :value="option" v-for="(option, key) in schedules" :key="key">
+              <option :value="option" v-for="(option, key) in avaiableSchedules" :key="key">
                 {{ option }}
               </option>
             </select>
@@ -51,6 +58,7 @@
 import BaseIndex from '@/components/BaseIndex.vue'
 import BaseButton from './Components/Button.vue'
 import Modal from './Components/Modal.vue'
+import { requesFromStore } from '@/js/api.js'
 
 export default {
   components: {
@@ -60,11 +68,12 @@ export default {
   },
   data: () => {
     return {
-      showModal: false
+      showModal: false,
+      schedules: []
     }
   },
   computed: {
-    schedules() {
+    avaiableSchedules() {
       const array = []
       for (let hour = 0; hour <= 23; hour++) {
         for (let minute = 0; minute < 4; minute++) {
@@ -86,6 +95,16 @@ export default {
         'Sab',
         'Dom',
       ]
+    }
+  },
+  mounted() {
+    this.load()
+  },
+  methods: {
+    load() {
+      requesFromStore()
+        .get('schedule')
+        .then(({ data }) => this.schedules = data.schedules)
     }
   }
 }
