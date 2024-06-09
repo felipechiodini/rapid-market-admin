@@ -1,17 +1,18 @@
 <template>
   <div class="d-flex">
     <div class="p-4">
-      <h5 class="mb-3">A sua conta</h5>
+      <h5 class="mb-3">Sua conta</h5>
       <div class="d-flex align-items-center">
         <Avatar :label="initialLetters" size="xlarge" shape="circle" />
         <div class="ms-3">
-          <strong>Faça o upload da sua foto de perfil.</strong>
-          <small class="d-block">Isto serve para que os membros da sua equipa o reconheçam na Burguer System.</small>
+          <strong>Faça o upload da sua foto de perfil</strong>
+          <small class="d-block">
+            Isto serve para que os membros da sua equipa o reconheçam na RapidEats
+          </small>
         </div>
-        <button class="btn btn-secondary btn-sm ms-auto">
+        <button class="btn btn-primary btn-sm ms-auto">
           Fazer upload da foto
         </button>
-        {{ initialLetters }}
       </div>
       <hr>
       <div class="d-flex my-4">
@@ -24,7 +25,7 @@
           </span>
         </div>
         <div class="ms-auto">
-          <button class="btn btn-secondary btn-sm ">
+          <button class="btn btn-primary btn-sm">
             Editar
           </button>
         </div>
@@ -40,24 +41,21 @@
           </span>
         </div>
         <div class="ms-auto">
-          <button class="btn btn-secondary btn-sm ms-auto">
+          <button class="btn btn-primary btn-sm ms-auto">
             Editar
           </button>
         </div>
       </div>
       <hr>
-      
       <div>
         <strong>Tema</strong>
-        <p>Escolha como gostaria de visualizar o Burguer System. 
+        <p>Escolha como gostaria de visualizar o RapidEats. 
           Selecione um tema ou sincronize temas com as preferências do seu sistema.</p>
         <div>
         </div>
       </div>
-
       <hr>
-
-      <button class="btn btn-sm btn-danger" @click="logout()">
+      <button class="btn btn-danger btn-sm w-25" @click="logout()">
         Sair
       </button>
     </div>
