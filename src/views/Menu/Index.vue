@@ -22,9 +22,6 @@ export default {
       payments: []
     }
   },
-  mounted() {
-    this.load()
-  },
   computed: {
     cardapiolink() {
       return `${import.meta.env.VITE_ORDER_SITE}/${this.$route.params.slug}`
