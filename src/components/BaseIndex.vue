@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
+  <div>
     <div class="d-flex">
-      <div class="mb-3">
+      <div class="mb-2">
         <h4 class="mb-0">{{ title }}</h4>
         <span class="subtitle mt-2" v-if="subtitle">
           {{ subtitle }}

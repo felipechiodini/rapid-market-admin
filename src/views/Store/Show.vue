@@ -1,6 +1,6 @@
 <template>
   <BaseIndex title="Dados do Estabelecimento">
-    <BaseForm  :request="request">
+    <BaseForm :request="request">
       <div class="col-12 col-lg-6">
         <label for="nome">Nome da Loja</label>
         <input v-model="store.name" id="nome" class="form-control">

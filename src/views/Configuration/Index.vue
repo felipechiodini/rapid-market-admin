@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <BaseIndex title="Configurações">
+  <BaseIndex title="Configurações">
 
-    </BaseIndex>
-  </div>
+  </BaseIndex>
 </template>
 
 <script>
@@ -13,7 +11,5 @@ export default {
   components: {
     BaseIndex
   }
-
-
 }
 </script>
