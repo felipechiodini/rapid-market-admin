@@ -1,8 +1,12 @@
 <template>
-  <BaseIndex title="Nova Categoria">
+  <BaseIndex title="Novo Pedido">
     <BaseForm :request="request">
-      <label for="">Cliente</label>
-      <input type="text">
+      <div class="row">
+        <div class="col-5">
+          <label for="">Cliente</label>
+          <input type="text">
+        </div>
+      </div>
     </BaseForm>
   </BaseIndex>
 </template>

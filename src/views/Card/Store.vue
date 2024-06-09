@@ -2,7 +2,7 @@
   <BaseIndex title="Categorias">
     <template #buttons>
       <button class="btn btn-primary btn-sm">
-        Nova Categoria
+        Nova Comanda
       </button>
     </template>
     <BaseTable request="category">

@@ -1,9 +1,11 @@
 <template>
   <BaseIndex title="Nova Categoria">
-    <BaseForm class="row" :request="request">
-      <div class="col-3">
-        <label for="category-name">Nome</label>
-        <input class="form-control" required v-model="form.name" id="category-name" type="text">
+    <BaseForm :request="request" :onSuccess="({ data }) => $router.push({ name: 'category.update', params: { category_id: data.category.id } })">
+      <div class="row">
+        <div class="col-12">
+          <label for="category-name">Nome da Categoria</label>
+          <input class="form-control" required v-model="form.name" id="category-name" type="text">
+        </div>
       </div>
     </BaseForm>
   </BaseIndex>
