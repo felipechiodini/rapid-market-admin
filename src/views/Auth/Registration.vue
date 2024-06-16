@@ -4,7 +4,7 @@
       <img width="150px" src="/logo.png">
       <h1>Cadastre-se</h1>
       <p>Crei sua conta grátis e começe seu delivery com a RapidEats.</p>
-      <form class="d-flex flex-column" @submit.prevent="onSubmit()">
+      <form class="d-flex flex-column" @submit.prevent="onSubmit">
         <label for="nome">Nome</label>
         <input class="form-control" type="text" required id="nome" v-model="form.name" />
         <label for="login-cellphone" class="mt-2">Celular</label>
@@ -65,11 +65,16 @@ export default {
   },
   methods: {
     ...mapActions(useUserStore, ['setToken', 'setUser', 'setMenus']),
-    async onSubmit() {
+    async onSubmit(t) {
       this.submiting = true
 
+      const token = await grecaptcha.execute(import.meta.env.VITE_RECAPTHCA_KEY, { action: 'submit' })
+
       try {
-        await request().post('user', this.form)
+        await request().post('user', {
+          ...this.form,
+          recaptcha_token: token
+        })
 
         let { data } = await request().post('auth/login', { 
           email: this.form.email,
