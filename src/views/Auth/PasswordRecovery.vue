@@ -1,6 +1,6 @@
 <template>
   <TemplateLogin>
-    <div class="d-flex flex-column justify-content-center h-100 w-50 mx-5">
+    <div class="d-flex flex-column justify-content-center h-100 w-50 px-4">
       <form class="d-flex flex-column" @submit.prevent="onSubmit()">
         <h1>Recuperação de senha</h1>
         <p>Digite seu e-mail e receba instruções para recuperar sua senha.</p>
