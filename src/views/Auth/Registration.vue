@@ -2,28 +2,30 @@
   <TemplateLogin>
     <div class="d-flex flex-column justify-content-center h-100 px-4">
       <img width="150px" src="/logo.png">
-      <h1>Login</h1>
-      <p>Acesse sua conta para gerenciar sua loja.</p>
+      <h1>Cadastre-se</h1>
+      <p>Crei sua conta grátis e começe seu delivery com a RapidEats.</p>
       <form class="d-flex flex-column" @submit.prevent="onSubmit()">
+        <label for="nome">Nome</label>
+        <input class="form-control" type="text" required id="nome" v-model="form.name" />
+        <label for="login-cellphone" class="mt-2">Celular</label>
+        <input class="form-control" required id="login-cellphone" type="tel" v-model="form.cellphone" />
+        <BaseError message="Informe o nome" />
         <label for="login-email">Email</label>
-        <BaseInput required id="login-email" type="email" v-model="form.email" />
+        <input class="form-control" required id="login-email" type="email" v-model="form.email" />
         <BaseError message="Informe o email" />
         <label for="login-password" class="mt-2">Senha</label>
-        <BaseInput required id="login-password" type="password" v-model="form.password" />
+        <input class="form-control" required id="login-password" type="password" v-model="form.password" />
         <BaseError message="Informe a senha" />
-        <RouterLink class="mt-1" :to="{ name: 'auth.password-recovery' }">
-          Esqueci minha senha
-        </RouterLink>
         <SubmitButton class="btn btn-primary w-100" type="submit" :loading="submiting">
-          Entrar
+          Criar minha conta
         </SubmitButton>
       </form>
       <div class="d-flex flex-wrap align-items-end mt-5 gap-2">
         <span style="font-size: .9rem;">
-          Ainda não administra seu delivery com a Rapideats?
+          Já possuí uma conta?
         </span>
-        <RouterLink :to="{ name: 'register' }">
-          Começar agora
+        <RouterLink :to="{ name: 'auth.login' }">
+          Login
         </RouterLink>
       </div>
     </div>
@@ -52,12 +54,13 @@ export default {
   data: () => {
     return {
       form: {
+        name: null,
         email: null,
-        password: null
+        password: null,
+        cellphone: null
       },
       error: null,
       submiting: false,
-      link: freeTest()
     }
   },
   methods: {
@@ -66,7 +69,13 @@ export default {
       this.submiting = true
 
       try {
-        const { data } = await request().post('auth/login', this.form)
+        await request().post('user', this.form)
+
+        let { data } = await request().post('auth/login', { 
+          email: this.form.email,
+          password: this.form.password
+        })
+
         this.setToken(data.access_token)
 
         const response = await request().get('auth/me')

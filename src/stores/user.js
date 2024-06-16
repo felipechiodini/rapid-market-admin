@@ -47,10 +47,11 @@ export const useUserStore = defineStore('user', {
     setMenus(menus) {
       this.menus = menus
     },
-    logout() {
+    logout(callback) {
       request().post('auth/logout').then(() => {
         localStorage.clear()
         Router.push({ name: 'auth.login' })
+        callback(false)
       })
     }
   },

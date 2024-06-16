@@ -106,6 +106,11 @@ const router = createRouter({
       ]
     },
     {
+      path: '/criar-conta',
+      name: 'register',
+      component: () => import('@/views/Auth/Registration.vue')
+    },
+    {
       path: '/login',
       name: 'auth.login',
       component: () => import('@/views/Auth/Login.vue')

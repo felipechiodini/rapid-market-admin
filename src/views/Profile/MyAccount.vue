@@ -55,9 +55,9 @@
         </div>
       </div>
       <hr>
-      <button class="btn btn-danger btn-sm w-25" @click="logout()">
+      <BaseButton class="btn btn-danger btn-sm w-25" :loading="logingOut" @click="logout(() => logingOut = false), logingOut = true">
         Sair
-      </button>
+      </BaseButton>
     </div>
   </div>
 </template>
@@ -67,10 +67,17 @@
 import { mapActions, mapState } from 'pinia';
 import { useUserStore } from '@/stores/user';
 import Avatar from 'primevue/avatar';
+import BaseButton from '@/components/BaseButton.vue'
 
 export default {
   components: {
-    Avatar
+    Avatar,
+    BaseButton
+  },
+  data: () => {
+    return {
+      logingOut: false
+    }
   },
   computed: {
     ...mapState(useUserStore, ['initialLetters'])
