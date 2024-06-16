@@ -16,6 +16,13 @@
         <label for="login-password" class="mt-2">Senha</label>
         <input class="form-control" required id="login-password" type="password" v-model="form.password" />
         <BaseError message="Informe a senha" />
+        <div class="mt-2">
+          <small>
+            This site is protected by reCAPTCHA and the Google
+            <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+            <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+          </small>
+        </div>
         <SubmitButton class="btn btn-primary w-100" type="submit" :loading="submiting">
           Criar minha conta
         </SubmitButton>

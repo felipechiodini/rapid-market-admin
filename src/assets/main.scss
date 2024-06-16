@@ -24,4 +24,8 @@ $body-color: #434343;
     cursor: pointer;
 }
 
+.grecaptcha-badge {
+    visibility: hidden;
+}
+
 @import "bootstrap/scss/bootstrap.scss";
