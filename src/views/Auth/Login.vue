@@ -66,12 +66,10 @@ export default {
       this.submiting = true
 
       try {
-        const { data } = await request().post('auth/login', this.form)
-        this.setToken(data.access_token)
+        const { data } = await request().post('login', this.form)
 
-        const response = await request().get('auth/me')
-        this.setUser(response.data)
-
+        this.setToken(data.token)
+        this.setUser(data.user)
         this.$router.push({ name: 'stores.choose' })
       } catch (error) {
         this.error = error.response.data.message
