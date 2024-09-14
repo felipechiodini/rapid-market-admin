@@ -1,7 +1,7 @@
 <template>
   <TemplateLogin>
     <div class="d-flex flex-column justify-content-center h-100 px-4">
-      <img width="150px" src="/logo.png">
+      <!-- <img width="150px" src="/logo.png"> -->
       <h1>Cadastre-se</h1>
       <p>Crei sua conta grátis e começe seu delivery com a RapidEats.</p>
       <form class="d-flex flex-column" @submit.prevent="onSubmit">

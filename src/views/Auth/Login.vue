@@ -1,7 +1,7 @@
 <template>
   <TemplateLogin>
     <div class="d-flex flex-column justify-content-center h-100 px-4">
-      <img width="150px" src="/logo.png">
+      <!-- <img width="150px" src="/logo.png"> -->
       <h1>Login</h1>
       <p>Acesse sua conta para gerenciar sua loja.</p>
       <form class="d-flex flex-column" @submit.prevent="onSubmit()">
