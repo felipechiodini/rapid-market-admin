@@ -78,7 +78,7 @@ export default {
       const token = await grecaptcha.execute(import.meta.env.VITE_RECAPTHCA_KEY, { action: 'submit' })
 
       try {
-        await request().post('user', {
+        await request().post('register', {
           ...this.form,
           recaptcha_token: token
         })
