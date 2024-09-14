@@ -20,7 +20,7 @@
       </form>
       <div class="d-flex flex-wrap align-items-end mt-5 gap-2">
         <span style="font-size: .9rem;">
-          Ainda não administra seu delivery com a Rapidmakert?
+          Ainda não administra seu delivery com a Rapidmarket?
         </span>
         <RouterLink :to="{ name: 'register' }">
           Começar agora
